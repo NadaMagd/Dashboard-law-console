@@ -1,8 +1,9 @@
+
 import Dashboard from "./pages/Dashboard"
-import TestConnection from "./pages/Test"
+
+import './index.css'
 
 function App() {
-
 
   return (
     <>
