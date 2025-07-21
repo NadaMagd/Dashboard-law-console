@@ -1,5 +1,5 @@
 import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../../firebase";
 
 
 
@@ -31,12 +31,9 @@ export async function ApproveLawyers(lawyerId) {
         await updateDoc(docRef,{
             isApproved:true,
         });
-        console.log("sucsess");
-        
+        console.log("success");
     }catch(error){
         console.log("error",error);
-        
-
     }
 }
-//====================
+//====================getInformationToPendingLawyers============
