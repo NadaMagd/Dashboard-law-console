@@ -1,15 +1,15 @@
+import Dashboard from "./pages/Dashboard";
 
-import Dashboard from "./pages/Dashboard"
-
-import './index.css'
+import "./index.css";
+import ConsultationsUI from "./pages/ConsultationsUI";
 
 function App() {
-
   return (
     <>
-   <Dashboard></Dashboard>
+      <Dashboard></Dashboard>
+      <ConsultationsUI />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
