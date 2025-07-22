@@ -1,18 +1,19 @@
+import Dashboard from "./pages/Dashboard";
 
-import Dashboard from "./pages/Dashboard"
 
-import './index.css'
-import { useEffect } from "react"
-import { getArticlesDate } from "./Service/Posts/Posts"
-import ArticlesTable from './pages/ArticlesTable';
+import "./index.css";
+import ConsultationsUI from "./pages/ConsultationsUI";
+
 
 function App() {
-
   return (
     <>
-<ArticlesTable/>
+
+      <Dashboard></Dashboard>
+      <ConsultationsUI />
+
     </>
-  )
+  );
 }
 
-export default App
+export default App;
