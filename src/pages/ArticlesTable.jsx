@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { deleteArticle, getArticlesDate } from '../Service/Posts/Posts';
-
+import { TrashIcon } from "@heroicons/react/24/outline";
 export default function ArticlesTable() {
   const [articles, setArticles] = useState([]);
+  const [selectedPostContent, setSelectedPostContent] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,37 +22,61 @@ export default function ArticlesTable() {
   };
 
   return (
-    <div className="overflow-x-auto">
-      <table className="table">
+    <div className="overflow-x-auto p-6">
+      <dialog id="content_modal" className="modal">
+        <div className="modal-box max-w-2xl">
+          <div className="w-full h-auto rounded-lg">
+              {selectedPostContent}
+          </div>
+          <div className="modal-action">
+            <form method="dialog">
+              <button className="btn">إغلاق</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+      <table className="table w-full text-center rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md">
         {/* head */}
-        <thead>
+        <thead className='goldTxt bgSecondary'>
           <tr>
-            <th>id</th>
-            <th>الصورة</th>
-            <th>المحتوى</th>
-            <th>عدد اللايكات</th>
-            <th>الإجراءات</th>
+            <th>Id</th>
+            <th>Picture</th>
+            <th>Content</th>
+            <th>Likes</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {articles.map((post, index) => (
-            <tr key={post.id}>
-              <td>{index + 1}</td>
+            <tr key={post.id} className="hover:bg-[#1c202e]">
+              <td className='goldTxt'>{index + 1}</td>
               <td>
                 <div className="avatar">
-                  <div className="mask mask-squircle w-12 h-12">
-                    <img src={post.imageUrl} alt="post" />
+                  <div className=" w-12 h-12">
+                    <img src={post.imageUrl} alt="post" 
+                    className='w-full h-auto rounded-lg'
+                    />
                   </div>
                 </div>
               </td>
-              <td className="max-w-xs truncate">{post.content}</td>
+              <td
+                className="max-w-xs truncate"
+                onClick={() => {
+                  setSelectedPostContent(post.content);
+                  document.getElementById("content_modal").showModal();
+                }}
+              >
+                {post.content}
+              </td>
               <td>{post.likes?.length|| 0}</td>
-              <td>
+              <td className=''>
                 <button
-                  className="btn btn-error btn-sm text-white"
+                  className="flex gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center  dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                   onClick={() => handleDelete(post.id)}
+                  
                 >
-                  حذف
+                  <TrashIcon className="w-5 h-5" />
+                  delete
                 </button>
               </td>
             </tr>
