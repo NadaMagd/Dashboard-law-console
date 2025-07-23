@@ -7,35 +7,43 @@ export const getClientsCount = async () => {
 };
 
 //****************************** get all client data and numbers ************************************/
-export async function AllClients() {
+// export async function AllClients() {
+//   try {
+//     const clients = await getDocs(collection(db, "clients"));
+//     let clientsData = [];
+//     clients.forEach((doc) => {
+//       clientsData.push({ id: doc.id, ...doc.data() });
+//     });
+
+//     return  clientsData
+//   } catch (e) {
+//     console.log(e);
+//     return  [] ;
+//   }
+// }
+
+export const AllClients = async () => {
   try {
-    const clients = await getDocs(collection(db, "clients"));
-    let clientsData = [];
-    clients.forEach((doc) => {
-      clientsData.push({ id: doc.id, ...doc.data() });
-    });
-
-    return   clientsData  
-  } catch (e) {
-    console.log(e);
-    return  [] ;
+    const querySnapshot = await getDocs(collection(db, "clients"));
+    const clients = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    console.log(clients);
+    return clients;
+  } catch (error) {
+    console.error("error fetch lawers: ", error);
   }
-}
+};
 //=================delete===========================================
-export async function deleteClient(id,message) {
-
-
-try {
+export async function deleteClient(id, message) {
+  try {
     const deletedClient = doc(db, "clients", id);
     await updateDoc(deletedClient, {
-      isDelete:true,
+      isDelete: true,
       messageToClient: message,
     });
-
   } catch (e) {
     console.log(e);
   }
-
-
-
 }
