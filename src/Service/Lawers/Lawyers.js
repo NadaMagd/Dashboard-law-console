@@ -1,7 +1,9 @@
+
 import { collection, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
 //=====================GetAll lawyers num=================================
+
 
 export async function getLawyersNumbers() {
   try {
@@ -99,6 +101,7 @@ export async function rejectLawyer(id, message) {
   } catch (e) {
     console.log(e);
   }
+
 }
 
 //=================delete===========================================
@@ -120,4 +123,8 @@ try {
 
 
 }
+
+
+
+
 
