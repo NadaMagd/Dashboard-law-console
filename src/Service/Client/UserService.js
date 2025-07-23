@@ -15,27 +15,22 @@ export async function AllClients() {
       clientsData.push({ id: doc.id, ...doc.data() });
     });
 
-    return   clientsData  
+    return clientsData;
   } catch (e) {
     console.log(e);
-    return  [] ;
+    return [];
   }
 }
-//=================delete===========================================
-export async function deleteClient(id,message) {
 
-
-try {
+//=================delete========================================
+export async function deleteClient(id, message) {
+  try {
     const deletedClient = doc(db, "clients", id);
     await updateDoc(deletedClient, {
-      isDelete:true,
+      isDelete: true,
       messageToClient: message,
     });
-
   } catch (e) {
     console.log(e);
   }
-
-
-
 }
