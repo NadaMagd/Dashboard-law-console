@@ -1,28 +1,31 @@
-import Dashboard from "./pages/Dashboard";
-
-import "./index.css";
-import ConsultationsUI from "./pages/ConsultationsUI";
-import { useEffect } from "react";
-import { getInformationPendingLawyers } from "./Service/Lawers/Lawyers";
-
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import NavBar from './Components/NavBar';
+import './index.css'; 
+import Dashboard from './pages/Dashboard';
+import RequestLawyers from './pages/RrguesteLawyers';
+import Lawyers from './pages/Lawyers';
+import Clients from './pages/Clients';
+import ArticlesTable from './pages/ArticlesTable';
 
 function App() {
-useEffect(() => {
-  async function getData() {
-    const data = await getInformationPendingLawyers();
-    console.log(data);
-  }
-
-  getData();
-}, []);
-
   return (
-    <>
+    <Router>
+      <div className="flex">
+  
+        <NavBar />
 
-      <Dashboard></Dashboard>
-      <ConsultationsUI />
-
-    </>
+        <div className="ml-64 p-6 w-full min-h-screen bg-franDark text-white">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/request" element={<RequestLawyers />} />
+            <Route path="/accepted" element={<Lawyers />} />
+            <Route path="/clients" element={<Clients />} />
+            <Route path="/articles" element={<ArticlesTable />} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
   );
 }
 

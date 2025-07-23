@@ -45,7 +45,7 @@ export default function ArticlesTable() {
                 </div>
               </td>
               <td className="max-w-xs truncate">{post.content}</td>
-              <td>{post.likes?.length || 0}</td>
+              <td>{post.likes?.length|| 0}</td>
               <td>
                 <button
                   className="btn btn-error btn-sm text-white"

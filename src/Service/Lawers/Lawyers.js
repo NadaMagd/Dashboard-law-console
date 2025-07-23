@@ -35,7 +35,7 @@ export async function getLawyersNumbers() {
 
 //=======================ApproveLawyers=======================================
 export async function ApproveLawyers(lawyerId) {
-  const docRef = doc(collection(db, "lawyers", lawyerId));
+  const docRef = doc(db, "lawyers", lawyerId);//solve
   try {
     await updateDoc(docRef, {
       isApproved: true,
@@ -46,8 +46,9 @@ export async function ApproveLawyers(lawyerId) {
   }
 }
 //====================getInformationToPendingLawyers============
-export async function getInformationPendingLawyers() {
+export async function getInformationLawyers() {
   let pendingLawyersList = [];
+  let ApproveLawyersList=[];
 
   try {
     const snapshot = await getDocs(collection(db, "lawyers"));
@@ -66,41 +67,8 @@ export async function getInformationPendingLawyers() {
           ...data, 
         });
       }
-    });
-
-    return pendingLawyersList;
-
-  } catch (e) {
-    console.error(e);
-    return [];
-  }
-}
-//==========================blockPending================
-export async function rejectLawyer(id) {
-  try {
-     const pendingLawyer= doc(collection(db,"lawyers",id));
-     await updateDoc(pendingLawyer,{
-       isApproved: false,
-        messageToLawyer: message,
-     })
-     console.log("توب التوب");
-     
-    }catch(e){
-        console.log(e);
-        
-      }
-}
-//==============================getAcceptedLawyers==================
-export async function getAcceptedLawyers() {
-  let acceptedLawyers=[];
-  try{
-     const snapshot = await getDocs(collection(db, "lawyers"));
-
-    snapshot.forEach((doc) => {
-      const data = doc.data(); 
-
-      if (data.isApproved === true) {
-        acceptedLawyers.push({
+      else{
+         ApproveLawyersList.push({
           id: doc.id,
           name: data.name,
           email: data.email,
@@ -112,20 +80,44 @@ export async function getAcceptedLawyers() {
       }
     });
 
-    return acceptedLawyers;
+    return { pending:pendingLawyersList, approve:ApproveLawyersList};
 
-  }catch(e){
-    console.log("Error",e);
-    
+  } catch (e) {
+    console.error(e);
+    return [];
   }
-  
 }
-//=================delete===========================================
-export async function deleteLawyer(id) {
+//==========================blockPending================
+export async function rejectLawyer(id, message) {
   try {
-    await deleteDoc(doc(db, "lawyers", id));
-    console.log(" deleted successfully");
-  } catch (error) {
-    console.error("Error deleting :", error);
+    const pendingLawyer = doc(db, "lawyers", id);
+    await updateDoc(pendingLawyer, {
+      isApproved: false,
+      messageToLawyer: message,
+    });
+    console.log("تم الرفض مع رسالة");
+  } catch (e) {
+    console.log(e);
   }
 }
+
+//=================delete===========================================
+export async function deleteLawyer(id,message) {
+
+
+try {
+    const deletedLawyer = doc(db, "lawyers", id);
+    await updateDoc(deletedLawyer, {
+      isDelete:true,
+      isApproved: false,
+      messageToLawyer: message,
+    });
+
+  } catch (e) {
+    console.log(e);
+  }
+
+
+
+}
+

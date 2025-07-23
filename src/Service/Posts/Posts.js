@@ -12,13 +12,12 @@ export async function getArticlesDate() {
         content: data.content,
         createdAt: data.createdAt,
         imageUrl: data.imageUrl,
-        likesCount: data.likes.length,
+        likesCount: Array.isArray(data.likes) ? data.likes.length  : 0,
       };
     });
-console.log(articles);
+    console.log(articles);
 
     return articles;
-
   } catch (error) {
     console.error("Error fetching articles:", error);
     return [];
