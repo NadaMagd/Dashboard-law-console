@@ -1,2 +1,50 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+/* Global styles */
+.subTxt {
+  color: #687693;
+}
+.goldTxt {
+  color: #c9b38c;
+}
+.bgBtn {
+  background-color: #c9b38c;
+}
+.bgBtnHover {
+  background-color: #b69d75;
+}
+.bgPrimary {
+  background-color: #262b3e;
+}
+.bgSecondary {
+  background-color: #1c202e;
+}
+.bgLayout {
+  background-color: #eeeeee;
+}
+
+
+/* Scrollbar styling - global */
+/* *::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: #f0f0f0; 
+}
+}
+
+
+*::-webkit-scrollbar-thumb {
+  background-color: #c9b38c !important; 
+  border-radius: 8px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #b69d75 !important;
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: #a7895e !important;
+} */

@@ -1,10 +1,12 @@
-
-import { collection, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../firebase";
 
 //=====================GetAll lawyers num=================================
-
-
 export async function getLawyersNumbers() {
   try {
     const snapshot = await getDocs(collection(db, "lawyers"));
@@ -37,7 +39,7 @@ export async function getLawyersNumbers() {
 
 //=======================ApproveLawyers=======================================
 export async function ApproveLawyers(lawyerId) {
-  const docRef = doc(db, "lawyers", lawyerId);//solve
+  const docRef = doc(db, "lawyers", lawyerId); //solve
   try {
     await updateDoc(docRef, {
       isApproved: true,
@@ -50,13 +52,13 @@ export async function ApproveLawyers(lawyerId) {
 //====================getInformationToPendingLawyers============
 export async function getInformationLawyers() {
   let pendingLawyersList = [];
-  let ApproveLawyersList=[];
+  let ApproveLawyersList = [];
 
   try {
     const snapshot = await getDocs(collection(db, "lawyers"));
 
     snapshot.forEach((doc) => {
-      const data = doc.data(); 
+      const data = doc.data();
 
       if (data.isApproved === false) {
         pendingLawyersList.push({
@@ -66,24 +68,22 @@ export async function getInformationLawyers() {
           idImageUrl: data.idImageUrl,
           barAssociationImageUrl: data.barAssociationImageUrl,
           specializations: data.specializations,
-          ...data, 
+          ...data,
         });
-      }
-      else{
-         ApproveLawyersList.push({
+      } else {
+        ApproveLawyersList.push({
           id: doc.id,
           name: data.name,
           email: data.email,
           idImageUrl: data.idImageUrl,
           barAssociationImageUrl: data.barAssociationImageUrl,
           specializations: data.specializations,
-          ...data, 
+          ...data,
         });
       }
     });
 
-    return { pending:pendingLawyersList, approve:ApproveLawyersList};
-
+    return { pending: pendingLawyersList, approve: ApproveLawyersList };
   } catch (e) {
     console.error(e);
     return [];
@@ -101,30 +101,18 @@ export async function rejectLawyer(id, message) {
   } catch (e) {
     console.log(e);
   }
-
 }
 
 //=================delete===========================================
-export async function deleteLawyer(id,message) {
-
-
-try {
+export async function deleteLawyer(id, message) {
+  try {
     const deletedLawyer = doc(db, "lawyers", id);
     await updateDoc(deletedLawyer, {
-      isDelete:true,
+      isDelete: true,
       isApproved: false,
       messageToLawyer: message,
     });
-
   } catch (e) {
     console.log(e);
   }
-
-
-
 }
-
-
-
-
-

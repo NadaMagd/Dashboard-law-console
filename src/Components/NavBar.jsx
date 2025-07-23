@@ -1,19 +1,27 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { FaHome, FaUserCheck, FaUserClock, FaUsers, FaNewspaper } from 'react-icons/fa';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import {
+  FaHome,
+  FaUserCheck,
+  FaUserClock,
+  FaUsers,
+  FaNewspaper,
+} from "react-icons/fa";
 
 export default function NavBar() {
   const links = [
-    { name: 'Dashboard', path: '/', icon: <FaHome /> },
-    { name: 'Pending Lawyers', path: '/request', icon: <FaUserClock /> },
-    { name: 'Lawyers', path: '/accepted', icon: <FaUserCheck /> },
-    { name: 'Clients', path: '/clients', icon: <FaUsers /> },
-    { name: 'Articles', path: '/articles', icon: <FaNewspaper /> },
+    { name: "Dashboard", path: "/", icon: <FaHome /> },
+    { name: "Pending Lawyers", path: "/request", icon: <FaUserClock /> },
+    { name: "Lawyers", path: "/accepted", icon: <FaUserCheck /> },
+    { name: "Clients", path: "/clients", icon: <FaUsers /> },
+    { name: "Articles", path: "/articles", icon: <FaNewspaper /> },
   ];
 
   return (
-    <aside className="h-screen w-64 bg-fran text-grayLight fixed flex flex-col p-4">
-      <h1 className="text-goldLight text-xl font-bold mb-8 text-center">لوحة التحكم</h1>
+    <aside className="h-screen w-64 bgSecondary text-grayLight fixed flex flex-col p-4">
+      <h1 className="goldTxt  text-xl font-bold mb-8 text-center">
+        Law Counsel
+      </h1>
       <nav className="flex flex-col gap-2">
         {links.map((link, index) => (
           <NavLink
@@ -22,8 +30,8 @@ export default function NavBar() {
             className={({ isActive }) =>
               `flex items-center gap-3 px-4 py-2 rounded-lg transition-all ${
                 isActive
-                  ? 'bg-goldDark text-franDark font-semibold'
-                  : 'hover:bg-goldLight hover:text-franDark'
+                  ? "goldTxt font-bold hover:bg-[#262b3e]"
+                  : " hover:bg-[#262b3e]"
               }`
             }
           >

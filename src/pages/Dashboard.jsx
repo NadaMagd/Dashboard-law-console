@@ -14,7 +14,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div>
+    <div >
       <h2>عدد المستخدمين: {userCount}</h2>
     </div>
   );
