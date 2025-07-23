@@ -1,18 +1,18 @@
-import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
+import {
+  arrayRemove,
+  collection,
+  doc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../firebase";
 
 //=====================GetAll lawyers=================================
-
-import { getDocs, collection } from "firebase/firestore";
-import { db } from "../../firebase";
-
-
 export async function getLawyersNumbers() {
   try {
     const snapshot = await getDocs(collection(db, "lawyers"));
     let accepted = 0;
     let pending = 0;
-
 
     snapshot.forEach((doc) => {
       const data = doc.data();
@@ -36,7 +36,6 @@ export async function getLawyersNumbers() {
       pending: 0,
     };
   }
-
 }
 
 //=======================ApproveLawyers=======================================
@@ -51,4 +50,3 @@ export async function ApproveLawyers(lawyerId) {
     console.log("error", error);
   }
 }
-//====================getInformationToPendingLawyers============
