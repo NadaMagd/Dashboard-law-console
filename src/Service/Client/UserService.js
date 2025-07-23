@@ -1,4 +1,4 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
 export const getClientsCount = async () => {
@@ -10,16 +10,32 @@ export const getClientsCount = async () => {
 export async function AllClients() {
   try {
     const clients = await getDocs(collection(db, "clients"));
-    let clientsNumber = clients.size;
     let clientsData = [];
-
     clients.forEach((doc) => {
       clientsData.push({ id: doc.id, ...doc.data() });
     });
 
-    return { clientsNumber: clientsNumber, clientsData: clientsData }; // problem
+    return   clientsData  
   } catch (e) {
     console.log(e);
-    return { clientsNumber: 0, clientsData: [] };
+    return  [] ;
   }
+}
+//=================delete===========================================
+export async function deleteClient(id,message) {
+
+
+try {
+    const deletedClient = doc(db, "clients", id);
+    await updateDoc(deletedClient, {
+      isDelete:true,
+      messageToClient: message,
+    });
+
+  } catch (e) {
+    console.log(e);
+  }
+
+
+
 }
