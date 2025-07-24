@@ -4,6 +4,7 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 export default function ArticlesTable() {
   const [articles, setArticles] = useState([]);
   const [selectedPostContent, setSelectedPostContent] = useState('');
+  const [selectedImg , setSelectedImg] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,18 +24,26 @@ export default function ArticlesTable() {
 
   return (
     <div className="overflow-x-auto p-6">
+
       <dialog id="content_modal" className="modal">
         <div className="modal-box max-w-2xl">
-          <div className="w-full h-auto rounded-lg">
+          <div className="w-full h-auto text-center rounded-lg">
+            <img
+              src={selectedImg}
+              className='my-4'
+              />
               {selectedPostContent}
+              
+
           </div>
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn">إغلاق</button>
+              <button className="btn text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center  dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">Close</button>
             </form>
           </div>
         </div>
       </dialog>
+
       <table className="table w-full text-center rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md">
         {/* head */}
         <thead className='goldTxt bgSecondary'>
@@ -63,6 +72,7 @@ export default function ArticlesTable() {
                 className="max-w-xs truncate"
                 onClick={() => {
                   setSelectedPostContent(post.content);
+                  setSelectedImg(post.imageUrl);
                   document.getElementById("content_modal").showModal();
                 }}
               >
