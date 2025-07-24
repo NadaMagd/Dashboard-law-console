@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import {
- 
-  deleteLawyer,
-  getInformationLawyers,
- 
-} from '../Service/Lawers/Lawyers';
+import React, { useEffect, useState } from "react";
+import { deleteLawyer, getInformationLawyers } from "../Service/Lawers/Lawyers";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 export default function Lawyers() {
   const [requests, setRequests] = useState([]);
   const [selectedLawyerId, setSelectedLawyerId] = useState(null);
-  const [message, setMessage] = useState('');
-  const [selectedImage, setSelectedImage] = useState('');
+  const [message, setMessage] = useState("");
+  const [selectedImage, setSelectedImage] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,43 +16,46 @@ export default function Lawyers() {
     fetchData();
   }, []);
 
-
-
-
   const handleReject = async () => {
-    if (!message.trim()) return alert('من فضلك اكتب سبب الرفض');
+    if (!message.trim()) return alert("من فضلك اكتب سبب الرفض");
 
     await deleteLawyer(selectedLawyerId, message);
     setRequests((prev) => prev.filter((post) => post.id !== selectedLawyerId));
     setSelectedLawyerId(null);
-    setMessage('');
-    document.getElementById('reject_modal').close();
+    setMessage("");
+    document.getElementById("reject_modal").close();
   };
 
   return (
     <div className="overflow-x-auto p-6">
-      <h2 className="text-2xl font-bold mb-4"> المحامين</h2>
+      <h2 className="text-2xl font-bold mb-4 goldTxt"> Lawyers</h2>
 
       {/* Modal رفض */}
       <dialog id="reject_modal" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg mb-4 text-red-600">رفض المحامي</h3>
+          <h3 className="font-bold text-lg mb-4 text-red-600">
+            {" "}
+            lawyer refused{" "}
+          </h3>
           <input
             type="text"
-            placeholder="سبب الحذف"
+            placeholder="Reason for rejection"
             className="input input-bordered w-full mb-4"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
           <div className="modal-action flex justify-end gap-2">
             <button
-              className="btn btn-error text-white"
               onClick={handleReject}
+              className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center  dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
             >
-              تأكيد الرفض
+              <TrashIcon className="w-5 h-5" />
+              Confirm rejection{" "}
             </button>
             <form method="dialog">
-              <button className="btn">إلغاء</button>
+              <button className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center  dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+                Cancel
+              </button>
             </form>
           </div>
         </div>
@@ -72,41 +71,44 @@ export default function Lawyers() {
           />
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn">إغلاق</button>
+              <button className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center  dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+                Cancel
+              </button>{" "}
             </form>
           </div>
         </div>
       </dialog>
 
       {/*  جدول */}
-      <table className="table w-full text-center border border-gray-200">
-        <thead className="bg-fran text-white">
+      <table className="table w-full text-center rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md">
+        <thead className="goldTxt bgSecondary">
           <tr>
             <th>#</th>
-            <th>الاسم</th>
-            <th>الإيميل</th>
-            <th>البطاقة</th>
-            <th>الكارنيه</th>
-            <th>التخصص</th>
-            <th>الإجراءات</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Specialization</th>
+            <th>National ID</th>
+            <th>Lawyer's card</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {requests.map((post, index) => (
-            <tr key={post.id} className="hover:bg-gray-50">
-              <td className="text-black">{index + 1}</td>
-              <td className="text-black">{post.name}</td>
-              <td className="text-black">{post.email}</td>
+            <tr key={post.id} className="hover:bg-[#1c202e]">
+              <td className="goldTxt">{index + 1}</td>
+              <td>{post.name}</td>
+              <td>{post.email}</td>
+              <td>{post.specializations || "—"}</td>
 
               {/* صورة البطاقة */}
               <td>
                 <img
                   src={post.idImageUrl}
                   alt="بطاقة"
-                  className="w-12 h-12 rounded-full object-cover cursor-pointer border hover:scale-110 transition-transform"
+                  className="w-12 h-12 rounded-lg object-cover cursor-pointer border hover:scale-110 transition-transform"
                   onClick={() => {
                     setSelectedImage(post.idImageUrl);
-                    document.getElementById('image_modal').showModal();
+                    document.getElementById("image_modal").showModal();
                   }}
                 />
               </td>
@@ -116,27 +118,26 @@ export default function Lawyers() {
                 <img
                   src={post.barAssociationImageUrl}
                   alt="كارنيه"
-                  className="w-12 h-12 rounded-full object-cover cursor-pointer border hover:scale-110 transition-transform"
+                  className="w-12 h-12 rounded-lg object-cover cursor-pointer border hover:scale-110 transition-transform"
                   onClick={() => {
                     setSelectedImage(post.barAssociationImageUrl);
-                    document.getElementById('image_modal').showModal();
+                    document.getElementById("image_modal").showModal();
                   }}
                 />
               </td>
 
-              <td className="text-black">{post.specializations || '—'}</td>
-
               {/* الإجراءات */}
               <td className="flex flex-col items-center gap-2">
-               
                 <button
-                  className="btn btn-error btn-sm text-white"
                   onClick={() => {
                     setSelectedLawyerId(post.id);
-                    document.getElementById('reject_modal').showModal();
+                    document.getElementById("reject_modal").showModal();
                   }}
+                  type="button"
+                  className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center  dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                 >
-                  رفض
+                  <TrashIcon className="w-5 h-5" />
+                  refuse
                 </button>
               </td>
             </tr>

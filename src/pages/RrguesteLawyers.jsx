@@ -45,20 +45,29 @@ export default function RequestLawyers() {
       {/* Modal رفض */}
       <dialog id="reject_modal" className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg mb-4 text-red-600">رفض المحامي</h3>
+          <h3 className="font-bold text-lg mb-4 text-red-600">
+            {" "}
+            lawyer refused
+          </h3>
           <input
             type="text"
-            placeholder="سبب الرفض"
+            placeholder=" Reason for rejection"
             className="input input-bordered w-full mb-4"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
           <div className="modal-action flex justify-end gap-2">
-            <button className="btn btn-error text-white" onClick={handleReject}>
-              تأكيد الرفض
+            <button
+              onClick={handleReject}
+              className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center  dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+            >
+              <TrashIcon className="w-5 h-5" />
+              Confirm rejection{" "}
             </button>
             <form method="dialog">
-              <button className="btn">إلغاء</button>
+              <button className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center  dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+                Cancel
+              </button>{" "}
             </form>
           </div>
         </div>
@@ -74,7 +83,9 @@ export default function RequestLawyers() {
           />
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn">إغلاق</button>
+              <button className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center  dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+                Cancel
+              </button>{" "}
             </form>
           </div>
         </div>
