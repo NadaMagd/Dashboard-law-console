@@ -18,7 +18,7 @@ export default function NavBar() {
   ];
 
   return (
-    <aside className="h-screen w-64 bgSecondary text-grayLight fixed flex flex-col p-4">
+    <aside className="h-screen w-64 bgSecondary text-white fixed flex flex-col p-4">
       <h1 className="goldTxt  text-xl font-bold mb-8 text-center">
         Law Counsel
       </h1>

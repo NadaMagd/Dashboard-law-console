@@ -15,7 +15,7 @@ export async function getLawyersNumbers() {
 
     snapshot.forEach((doc) => {
       const data = doc.data();
-      if (data.isApprove === true) {
+      if (data.isApproved === true) {
         accepted++;
       } else {
         pending++;
