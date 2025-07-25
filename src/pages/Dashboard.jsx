@@ -15,6 +15,7 @@ import ConsultationPieChart from "../Components/ConsultationPieChart";
 import LawyersBarChart from "../Components/LawyersBarChart";
 import ProgressCard from "../Components/ProgressBar";
 import UserDoughnutChart from "../Components/UserDoughnutChart";
+import LawerVSclient from "../Components/LawerVSclient";
 
 export default function Dashboard() {
   const [stats, setStats] = useState({
@@ -48,9 +49,9 @@ export default function Dashboard() {
   const consultationsTotal =
     stats.consultationsAccepted + stats.consultationsPending;
   return (
-    <div className="space-y-10 p-6 min-h-screen">
+    <div className="space-y-10 p-6 min-h-screen ">
       {/* Cards */}
-      <section className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 ">
         <StatCard
           icon={<FaUserTie size={24} />}
           title="Accepted Lawyers"
@@ -98,7 +99,7 @@ export default function Dashboard() {
       </section>
 
       {/* Charts Container */}
-      <section className="flex flex-wrap justify-center gap-10 bgSecondary rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md">
+      {/* <section className="flex flex-wrap justify-center gap-10 bgSecondary rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md">
         <div className="p-6 rounded-2xl w-full max-w-md">
           
           <ConsultationPieChart
@@ -120,11 +121,12 @@ export default function Dashboard() {
             Lawyers={stats.lawyersTotal}
           />
         </div>
-      </section>
+      </section> */}
 
       {/* Doughnut Chart */}
-      <section className="bgSecondary p-6 rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md max-w-4xl mx-auto">
-        <LawyersBarChart Clients={stats.clients} Lawyers={stats.lawyersTotal} />
+      <section className="bgSecondary p-6 rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md max-w-6xl mx-auto">
+        
+        <LawerVSclient Clients={stats.clients} Lawyers={stats.lawyersTotal} />
       </section>
     </div>
   );
