@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { deleteArticle, getArticlesDate } from "../Service/Posts/Posts";
 import { TrashIcon } from "@heroicons/react/24/outline";
-import Pagination from './../Components/Pagetions';
+import Pagination from "./../Components/Pagetions";
 
 export default function ArticlesTable() {
   const [articles, setArticles] = useState([]);
   const [selectedPostContent, setSelectedPostContent] = useState("");
   const [selectedImg, setSelectedImg] = useState("");
+
   const [selectedPostId, setSelectedPostId] = useState(null);
+
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
@@ -35,6 +37,7 @@ export default function ArticlesTable() {
 
   return (
     <div className="overflow-x-auto p-6">
+      <h2 className="text-2xl goldTxt font-bold mb-4">Articles</h2>
 
       <dialog id="deleted_modal" className="modal">
         <div className="modal-box">
@@ -83,9 +86,9 @@ export default function ArticlesTable() {
 
       <table className="table w-full text-center rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md">
 
+
         {/* head */}
         <thead className="goldTxt bgSecondary">
-
           <tr>
             <th>Id</th>
             <th>Picture</th>
@@ -113,6 +116,7 @@ export default function ArticlesTable() {
 //               <td>
 //                 <div className="avatar w-12 h-12">
 //                   <img src={post.imageUrl} alt="post" className='w-full h-auto rounded-lg' />
+//                    className="w-full h-auto rounded-lg"
 
                 </div>
               </td>
@@ -130,12 +134,13 @@ export default function ArticlesTable() {
 
               <td className="">
                 <button
-                  className="flex gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center  dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-                  onClick={() => {
+
+                  className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+
+                    onClick={() => {
                     setSelectedPostId(post.id);
                     document.getElementById("deleted_modal").showModal();
                   }}
-
                 >
                   <TrashIcon className="w-5 h-5" />
                   delete
@@ -146,7 +151,6 @@ export default function ArticlesTable() {
         </tbody>
       </table>
 
-  
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}

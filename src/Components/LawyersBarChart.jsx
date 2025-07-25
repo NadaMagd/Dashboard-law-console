@@ -17,7 +17,7 @@ export default function LawyersBarChart({ Clients, Lawyers }) {
   return (
     <div className="w-full max-w-md mx-auto">
       <h3 className="text-lg font-bold mb-4 goldTxt text-center">
-        Lawyers Status
+        Users Status
       </h3>
       <ResponsiveContainer width="100%" height={250}>
         <BarChart data={data}>
