@@ -1,4 +1,4 @@
-import { collection, deleteDoc, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 
 export async function getArticlesDate() {
@@ -12,7 +12,7 @@ export async function getArticlesDate() {
         content: data.content,
         createdAt: data.createdAt,
         imageUrl: data.imageUrl,
-        likesCount: Array.isArray(data.likes) ? data.likes.length  : 0,
+        likesCount: Array.isArray(data.likes) ? data.likes.length : 0,
       };
     });
     console.log(articles);
