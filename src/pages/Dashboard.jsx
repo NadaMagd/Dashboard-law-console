@@ -14,8 +14,6 @@ import { getLawyersNumbers } from "../Service/Lawers/Lawyers";
 import ConsultationPieChart from "../Components/ConsultationPieChart";
 import LawyersBarChart from "../Components/LawyersBarChart";
 import ProgressCard from "../Components/ProgressBar";
-import ClientLawyerLineChart from "./../Components/ClientLawyerLineChart";
-import PolarAreaChart from "../Components/PolarAreaChart";
 import UserDoughnutChart from "../Components/UserDoughnutChart";
 
 export default function Dashboard() {
@@ -50,7 +48,7 @@ export default function Dashboard() {
   const consultationsTotal =
     stats.consultationsAccepted + stats.consultationsPending;
   return (
-    <div className="space-y-10 p-6 bg-[#1c202e] min-h-screen">
+    <div className="space-y-10 p-6 min-h-screen">
       {/* Cards */}
       <section className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <StatCard
@@ -80,49 +78,53 @@ export default function Dashboard() {
         />
       </section>
 
-      {/* Charts Container */}
-      <section className="flex flex-wrap justify-center gap-10">
-        <div className="bgSecondary p-6 rounded-2xl border border-[#c9b38c] shadow-md w-full max-w-md">
-          <ConsultationPieChart
-            accepted={stats.consultationsAccepted}
-            pending={stats.consultationsPending}
-          />
-        </div>
-
-        <div className="bgSecondary p-6 rounded-2xl border border-[#c9b38c] shadow-md w-full max-w-md">
-          <UserDoughnutChart
-            Pending={stats.lawyersPending}
-            Accepted={stats.lawyersAccepted}
-          />
-        </div>
-      </section>
-
-      {/* Doughnut Chart */}
-      <section className="bgSecondary p-6 rounded-2xl border border-[#c9b38c] shadow-md max-w-4xl mx-auto">
-          <LawyersBarChart
-            Clients={stats.clients}
-            Lawyers={stats.lawyersTotal}
-          />
-      </section>
-
-
       {/* Progress Bars */}
       <section className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-        <div className="bgSecondary p-6 rounded-2xl border border-[#c9b38c] shadow-md">
-          <ProgressCard
-            title="Lawyers Accepted %"
-            value={stats.lawyersAccepted}
-            total={stats.lawyersTotal}
-          />
-        </div>
-
-        <div className="bgSecondary p-6 rounded-2xl border border-[#c9b38c] shadow-md">
+        <div className="p-6">
           <ProgressCard
             title="Consultations Completed %"
             value={stats.consultationsAccepted}
             total={consultationsTotal}
           />
         </div>
+
+        <div className=" p-6">
+          <ProgressCard
+            title="Lawyers Accepted %"
+            value={stats.lawyersAccepted}
+            total={stats.lawyersTotal}
+          />
+        </div>
+      </section>
+
+      {/* Charts Container */}
+      <section className="flex flex-wrap justify-center gap-10 bgSecondary rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md">
+        <div className="p-6 rounded-2xl w-full max-w-md">
+          
+          <ConsultationPieChart
+            accepted={stats.consultationsAccepted}
+            pending={stats.consultationsPending}
+          />
+        </div>
+
+        <div className="p-6 rounded-2xl w-full max-w-md">
+          <UserDoughnutChart
+            Pending={stats.lawyersPending}
+            Accepted={stats.lawyersAccepted}
+          />
+        </div>
+
+        <div className="p-6 rounded-2xl w-full max-w-md">
+          <LawyersBarChart
+            Clients={stats.clients}
+            Lawyers={stats.lawyersTotal}
+          />
+        </div>
+      </section>
+
+      {/* Doughnut Chart */}
+      <section className="bgSecondary p-6 rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md max-w-4xl mx-auto">
+        <LawyersBarChart Clients={stats.clients} Lawyers={stats.lawyersTotal} />
       </section>
     </div>
   );

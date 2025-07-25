@@ -49,20 +49,20 @@ export default function Lawyers() {
           setSelectedLawyerId(null);
           setMessage("");
         }}
-        title="رفض المحامي"
+        title="Refuse Lawyer "
       >
         <input
           type="text"
-          placeholder="سبب الرفض"
-          className="input input-bordered w-full mb-4 text-black"
+          placeholder=" Reason of rejected"
+          className="input input-bordered w-full mb-4 "
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
 
-        <div className="flex justify-center gap-4 mt-4">
+        <div className="flex justify-end gap-4 mt-4">
           <button
             onClick={handleReject}
-            className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-4 py-2"
+            className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
           >
             Confirmation refuse
           </button>
@@ -72,7 +72,7 @@ export default function Lawyers() {
               setSelectedLawyerId(null);
               setMessage("");
             }}
-            className="border border-gray-500 text-gray-300 hover:text-white hover:bg-gray-700 font-medium rounded-lg text-sm px-4 py-2"
+            className="border border-gray-500 text-gray-300 hover:text-white hover:bg-gray-500 font-medium rounded-lg text-sm px-4 "
           >
             Cancel
           </button>
@@ -94,15 +94,15 @@ export default function Lawyers() {
         <div className="flex justify-center">
           <button
             onClick={() => setSelectedImage("")}
-            className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-4 py-2"
+            className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
           >
-            إغلاق
+            Close
           </button>
         </div>
       </CustomModal>
 
       {/* جدول */}
-      <table className="table w-full text-center rounded-2xl overflow-hidden text-white shadow-md">
+      <table className="table w-full text-center  rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md">
         <thead className="goldTxt bgSecondary">
           <tr>
             <th>#</th>
@@ -150,7 +150,7 @@ export default function Lawyers() {
                     document.getElementById("reject_modal").showModal();
                   }}
                   type="button"
-                  className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-4 py-2 text-center"
+                  className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                 >
                   <TrashIcon className="w-5 h-5" />
                   Refuse

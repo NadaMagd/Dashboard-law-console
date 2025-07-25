@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { deleteArticle, getArticlesDate } from '../Service/Posts/Posts';
+import React, { useEffect, useState } from "react";
+import { deleteArticle, getArticlesDate } from "../Service/Posts/Posts";
 import { TrashIcon } from "@heroicons/react/24/outline";
-import Pagination from './../Components/Pagetions';
+import Pagination from "./../Components/Pagetions";
 
 export default function ArticlesTable() {
   const [articles, setArticles] = useState([]);
-  const [selectedPostContent, setSelectedPostContent] = useState('');
-  const [selectedImg , setSelectedImg] = useState('');
+  const [selectedPostContent, setSelectedPostContent] = useState("");
+  const [selectedImg, setSelectedImg] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
@@ -24,7 +24,7 @@ export default function ArticlesTable() {
     if (!confirmDelete) return;
 
     await deleteArticle(id);
-    setArticles(prev => prev.filter(post => post.id !== id));
+    setArticles((prev) => prev.filter((post) => post.id !== id));
   };
 
   const indexOfLastPost = currentPage * itemsPerPage;
@@ -34,16 +34,18 @@ export default function ArticlesTable() {
 
   return (
     <div className="overflow-x-auto p-6">
+      <h2 className="text-2xl goldTxt font-bold mb-4">Articles</h2>
+
       {/* Modal عرض المحتوى */}
-      <dialog id="content_modal" className="modal">
+      <dialog id="content_modal" className="modal text-center">
         <div className="modal-box max-w-2xl">
-          <div className="w-full h-auto text-center rounded-lg">
-            <img src={selectedImg} className='my-4' />
+          <div className="w-full h-auto rounded-lg">
+            <img src={selectedImg} className="my-4" />
             {selectedPostContent}
           </div>
-          <div className="modal-action">
-            <form method="dialog">
-              <button className="btn text-red-700 hover:text-white border border-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-4 py-2">
+          <div className="modal-action flex justify-center items-center">
+            <form method="dialog ">
+              <button className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
                 Close
               </button>
             </form>
@@ -52,7 +54,7 @@ export default function ArticlesTable() {
       </dialog>
 
       <table className="table w-full text-center rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md">
-        <thead className='goldTxt bgSecondary'>
+        <thead className="goldTxt bgSecondary">
           <tr>
             <th>Id</th>
             <th>Picture</th>
@@ -64,10 +66,14 @@ export default function ArticlesTable() {
         <tbody>
           {currentPosts.map((post, index) => (
             <tr key={post.id} className="hover:bg-[#1c202e]">
-              <td className='goldTxt'>{indexOfFirstPost + index + 1}</td>
+              <td className="goldTxt">{indexOfFirstPost + index + 1}</td>
               <td>
                 <div className="avatar w-12 h-12">
-                  <img src={post.imageUrl} alt="post" className='w-full h-auto rounded-lg' />
+                  <img
+                    src={post.imageUrl}
+                    alt="post"
+                    className="w-full h-auto rounded-lg"
+                  />
                 </div>
               </td>
               <td
@@ -83,7 +89,7 @@ export default function ArticlesTable() {
               <td>{post.likes?.length || 0}</td>
               <td>
                 <button
-                  className="flex gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-4 py-2"
+                  className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                   onClick={() => handleDelete(post.id)}
                 >
                   <TrashIcon className="w-5 h-5" />
@@ -95,7 +101,6 @@ export default function ArticlesTable() {
         </tbody>
       </table>
 
-  
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
