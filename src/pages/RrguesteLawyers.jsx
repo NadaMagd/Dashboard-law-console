@@ -6,12 +6,17 @@ import {
 } from "../Service/Lawers/Lawyers";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
+import Pagination from "./../Components/Pagetions";
+import CustomModal from "../Components/Model";
 
 export default function RequestLawyers() {
   const [requests, setRequests] = useState([]);
   const [selectedLawyerId, setSelectedLawyerId] = useState(null);
   const [message, setMessage] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,61 +43,77 @@ export default function RequestLawyers() {
     document.getElementById("reject_modal").close();
   };
 
+  const indexOfLastRequest = currentPage * itemsPerPage;
+  const indexOfFirstRequest = indexOfLastRequest - itemsPerPage;
+  const currentRequests = requests.slice(
+    indexOfFirstRequest,
+    indexOfLastRequest
+  );
+  const totalPages = Math.ceil(requests.length / itemsPerPage);
+
   return (
     <div className="overflow-x-auto p-6">
       <h2 className="goldTxt text-2xl font-bold mb-4">Lawyers' requests</h2>
 
-      {/* Modal رفض */}
-      <dialog id="reject_modal" className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg mb-4 text-red-600">
-            {" "}
-            lawyer refused
-          </h3>
-          <input
-            type="text"
-            placeholder=" Reason for rejection"
-            className="input input-bordered w-full mb-4"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-          <div className="modal-action flex justify-end gap-2">
-            <button
-              onClick={handleReject}
-              className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center  dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-            >
-              <TrashIcon className="w-5 h-5" />
-              Confirm rejection{" "}
-            </button>
-            <form method="dialog">
-              <button className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center  dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
-                Cancel
-              </button>{" "}
-            </form>
-          </div>
-        </div>
-      </dialog>
+     <CustomModal
+  isOpen={!!selectedLawyerId}
+  onClose={() => {
+    setSelectedLawyerId(null);
+    setMessage("");
+  }}
+  title="Refuse Lawyer "
+>
+  <input
+    type="text"
+    placeholder="your Message"
+    className="input input-bordered w-full mb-4 text-black"
+    value={message}
+    onChange={(e) => setMessage(e.target.value)}
+  />
 
-      {/*  Modal صورة */}
-      <dialog id="image_modal" className="modal">
-        <div className="modal-box max-w-2xl">
-          <img
-            src={selectedImage}
-            alt="المستند"
-            className="w-full h-auto rounded-lg"
-          />
-          <div className="modal-action">
-            <form method="dialog">
-              <button className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center  dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
-                Cancel
-              </button>{" "}
-            </form>
-          </div>
-        </div>
-      </dialog>
+  <div className="flex justify-center gap-4 mt-4">
+    <button
+      onClick={handleReject}
+      className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-4 py-2"
+    >
+      Confirmation refuse
+    </button>
 
-      {/*  جدول */}
-      <table className="table w-full text-center rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md">
+    <button
+      onClick={() => {
+        setSelectedLawyerId(null);
+        setMessage("");
+      }}
+      className="border border-gray-500 text-gray-300 hover:text-white hover:bg-gray-700 font-medium rounded-lg text-sm px-4 py-2"
+    >
+      Cancel
+    </button>
+  </div>
+</CustomModal>
+
+      {/* Modal صورة */}
+     <CustomModal
+  isOpen={!!selectedImage}
+  onClose={() => setSelectedImage("")}
+  title="صورة المستند"
+>
+  <img
+    src={selectedImage}
+    alt="المستند"
+    className="w-full h-auto rounded-lg mb-4"
+  />
+
+  <div className="flex justify-center">
+    <button
+      onClick={() => setSelectedImage("")}
+      className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-4 py-2"
+    >
+      إغلاق
+    </button>
+  </div>
+</CustomModal>
+
+      <table className="table w-full text-center rounded-2xl overflow-hidden text-white shadow-md">
         <thead className="goldTxt bgSecondary">
           <tr>
             <th>#</th>
@@ -105,14 +126,12 @@ export default function RequestLawyers() {
           </tr>
         </thead>
         <tbody>
-          {requests.map((request, index) => (
+          {currentRequests.map((request, index) => (
             <tr key={request.id} className="hover:bg-[#1c202e]">
-              <td className="goldTxt">{index + 1}</td>
+              <td className="goldTxt">{indexOfFirstRequest + index + 1}</td>
               <td>{request.name}</td>
               <td>{request.email}</td>
               <td>{request.specializations || "—"}</td>
-
-              {/* صورة البطاقة */}
               <td>
                 <img
                   src={request.idImageUrl}
@@ -124,8 +143,6 @@ export default function RequestLawyers() {
                   }}
                 />
               </td>
-
-              {/*  صورة الكارنيه */}
               <td>
                 <img
                   src={request.barAssociationImageUrl}
@@ -137,8 +154,6 @@ export default function RequestLawyers() {
                   }}
                 />
               </td>
-
-              {/* الإجراءات */}
               <td className="flex flex-col items-center gap-2">
                 <div className="flex justify-end gap-4">
                   <button
@@ -147,7 +162,7 @@ export default function RequestLawyers() {
                       document.getElementById("reject_modal").showModal();
                     }}
                     type="button"
-                    className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center  dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+                    className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-4 py-2"
                   >
                     <TrashIcon className="w-5 h-5" />
                     refuse
@@ -155,9 +170,9 @@ export default function RequestLawyers() {
                   <button
                     onClick={() => handleApprove(request.id)}
                     type="button"
-                    className="flex items-center gap-2 text-green-600 hover:text-white border border-green-700 hover:bg-green-800  font-medium rounded-lg text-sm px-4 py-2 text-center  dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-500 dark:focus:ring-green-800"
+                    className="flex items-center gap-2 text-green-600 hover:text-white border border-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-4 py-2"
                   >
-                    <CheckCircleIcon className="w-6 h-6 " />
+                    <CheckCircleIcon className="w-6 h-6" />
                     accept
                   </button>
                 </div>
@@ -166,6 +181,13 @@ export default function RequestLawyers() {
           ))}
         </tbody>
       </table>
+
+  
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={(page) => setCurrentPage(page)}
+      />
     </div>
   );
 }

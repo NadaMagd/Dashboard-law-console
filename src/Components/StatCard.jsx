@@ -1,0 +1,15 @@
+import React from "react";
+
+export default function StatCard({ title, value, icon }) {
+  return (
+    <div className="rounded-2xl p-5 shadow-md text-white bgSecondary border border-[#c9b38c] hover:shadow-lg transition-all duration-200 w-full h-full">
+      <div className="flex items-center justify-between mb-4">
+        <div>
+          <h3 className="text-md font-semibold goldTxt">{title}</h3>
+          <p className="text-3xl font-bold goldTxt mt-2">{value}</p>
+        </div>
+        <div className="text-4xl text-[#c9b38c]">{icon}</div>
+      </div>
+    </div>
+  );
+}
