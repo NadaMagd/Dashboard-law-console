@@ -15,7 +15,7 @@ import ConsultationPieChart from "../Components/ConsultationPieChart";
 import LawyersBarChart from "../Components/LawyersBarChart";
 import ProgressCard from "../Components/ProgressBar";
 import UserDoughnutChart from "../Components/UserDoughnutChart";
-import LawerVSclient from "../Components/LawerVSclient";
+
 
 export default function Dashboard() {
   const [stats, setStats] = useState({
@@ -80,7 +80,7 @@ export default function Dashboard() {
       </section>
 
       {/* Progress Bars */}
-      <section className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      <section className="grid md:grid-cols-2 gap-2 max-w-10xl mx-auto">
         <div className="p-6">
           <ProgressCard
             title="Consultations Completed %"
@@ -99,9 +99,8 @@ export default function Dashboard() {
       </section>
 
       {/* Charts Container */}
-      {/* <section className="flex flex-wrap justify-center gap-10 bgSecondary rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md">
+      <section className="flex flex-wrap justify-center gap-10 bgSecondary rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md">
         <div className="p-6 rounded-2xl w-full max-w-md">
-          
           <ConsultationPieChart
             accepted={stats.consultationsAccepted}
             pending={stats.consultationsPending}
@@ -121,13 +120,14 @@ export default function Dashboard() {
             Lawyers={stats.lawyersTotal}
           />
         </div>
-      </section> */}
+      </section>
 
       {/* Doughnut Chart */}
-      <section className="bgSecondary p-6 rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md max-w-6xl mx-auto">
+      {/* <section className="bgSecondary p-6 rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md max-w-lg  mx-auto">
+
+       
         
-        <LawerVSclient Clients={stats.clients} Lawyers={stats.lawyersTotal} />
-      </section>
+      </section> */}
     </div>
   );
 }
