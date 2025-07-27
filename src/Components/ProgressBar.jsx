@@ -5,9 +5,9 @@ export default function ProgressCard({ title, value, total }) {
     <div className=" w-full bgSecondary rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md p-6 hover:shadow-lg transition-all duration-200 hover:scale-[1.01]">
       <h3 className="text-md font-semibold  mb-3 text-center">{title}</h3>
 
-      <div className=" yellowChar rounded-full h-4 overflow-hidden">
+      <div className=" yellowChar bg-[#FFA05E] rounded-full h-4 overflow-hidden">
         <div
-          className="redChar h-full"
+          className="redChar bg-[#FB4343] h-full"
           style={{
             width: `${percent}%`,
             transition: "width 0.5s ease-in-out",
@@ -16,7 +16,7 @@ export default function ProgressCard({ title, value, total }) {
         ></div>
       </div>
 
-      <p className="mt-2 text-sm text-right redC">{percent}%</p>
+      <p className="mt-2 text-sm text-right redC text-[#FB4343]">{percent}%</p>
     </div>
   );
 }

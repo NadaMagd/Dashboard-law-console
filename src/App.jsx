@@ -23,7 +23,7 @@ let route = createBrowserRouter([
     path: "",
     element: <Layout />,
     children: [
-      { index: true, element: <ProtectedRoute><Dashboard /> </ProtectedRoute>},
+      { index: true, element: <ProtectedRoute><Dashboard /></ProtectedRoute>},
       { path: "/request", element:<ProtectedRoute> <RequestLawyers /> </ProtectedRoute>},
       { path: "/accepted", element: <ProtectedRoute><Lawyers /> </ProtectedRoute>},
       { path: "/clients", element:<ProtectedRoute><Clients /> </ProtectedRoute>},
