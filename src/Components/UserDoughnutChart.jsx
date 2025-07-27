@@ -1,6 +1,6 @@
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 
-const COLORS = ["#c9b38c", "#687693"];
+const COLORS = ["#763CAC", "#8B7AA4"];
 
 export default function UserDoughnutChart({ Accepted, Pending }) {
   const data = [
@@ -9,10 +9,8 @@ export default function UserDoughnutChart({ Accepted, Pending }) {
   ];
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      <h3 className="goldTxt text-center text-lg font-bold mb-4">
-         Lawyers
-      </h3>
+    <div>
+      <h3 className="text-center text-lg font-bold mb-4">Lawyers</h3>
       <PieChart width={300} height={250}>
         <Pie
           data={data}

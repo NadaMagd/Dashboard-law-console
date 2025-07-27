@@ -16,7 +16,6 @@ import LawyersBarChart from "../Components/LawyersBarChart";
 import ProgressCard from "../Components/ProgressBar";
 import UserDoughnutChart from "../Components/UserDoughnutChart";
 
-
 export default function Dashboard() {
   const [stats, setStats] = useState({
     clients: 0,
@@ -50,6 +49,8 @@ export default function Dashboard() {
     stats.consultationsAccepted + stats.consultationsPending;
   return (
     <div className="space-y-10 p-6 min-h-screen ">
+      <h2 className="text-2xl goldTxt font-bold mb-4">Dashboard</h2>
+
       {/* Cards */}
       <section className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 ">
         <StatCard
@@ -99,35 +100,26 @@ export default function Dashboard() {
       </section>
 
       {/* Charts Container */}
-      <section className="flex flex-wrap justify-center gap-10 bgSecondary rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md">
-        <div className="p-6 rounded-2xl w-full max-w-md">
+      <section className="flex flex-wrap justify-center items-center gap-10 p-6 rounded-2xl overflow-hidden text-white">
+        <div className="flex items-center justify-center p-6 rounded-2xl w-full max-w-lg shadow-neutral-600 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.01] bgSecondary">
           <ConsultationPieChart
             accepted={stats.consultationsAccepted}
             pending={stats.consultationsPending}
           />
         </div>
 
-        <div className="p-6 rounded-2xl w-full max-w-md">
+        <div className="flex flex-wrap justify-center p-6 rounded-2xl w-full max-w-lg shadow-neutral-600 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.01] bgSecondary">
           <UserDoughnutChart
             Pending={stats.lawyersPending}
             Accepted={stats.lawyersAccepted}
           />
         </div>
-
-        <div className="p-6 rounded-2xl w-full max-w-md">
-          <LawyersBarChart
-            Clients={stats.clients}
-            Lawyers={stats.lawyersTotal}
-          />
-        </div>
       </section>
 
       {/* Doughnut Chart */}
-      {/* <section className="bgSecondary p-6 rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md max-w-lg  mx-auto">
-
-       
-        
-      </section> */}
+      <section className="bgSecondary p-6 rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.01] max-w-2xlg  mx-auto ">
+        <LawyersBarChart Clients={stats.clients} Lawyers={stats.lawyersTotal} />
+      </section>
     </div>
   );
 }

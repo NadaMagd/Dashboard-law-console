@@ -1,6 +1,6 @@
 import { PieChart, Pie, Cell, Legend, Tooltip } from "recharts";
 
-const COLORS = ["#c9b38c", "#687693"];
+const COLORS = ["#B8CCE7", "#EBD8F0"];
 
 export default function ConsultationPieChart({ accepted, pending }) {
   const data = [
@@ -10,7 +10,7 @@ export default function ConsultationPieChart({ accepted, pending }) {
 
   return (
     <div>
-      <h3 className="text-lg font-bold mb-4 goldTxt ">
+      <h3 className="text-center text-lg font-bold mb-4">
         Consultations Status
       </h3>
       <PieChart width={300} height={250}>

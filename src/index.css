@@ -24,6 +24,18 @@
   background-color: #eeeeee;
 }
 
+.redC{
+  color: #FB4343;
+}
+.redChar{
+  background-color: #FB4343;
+}
+.yellowChar{
+  background-color: #FFA05E;
+}
+
+
+
 
 /* Scrollbar styling - global */
 /* *::-webkit-scrollbar {
