@@ -1,21 +1,32 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   FaHome,
   FaUserCheck,
   FaUserClock,
   FaUsers,
   FaNewspaper,
+  FaUnlock,
+  FaSignOutAlt
 } from "react-icons/fa";
 
 export default function NavBar() {
-  const links = [
-    { name: "Dashboard", path: "/", icon: <FaHome /> },
-    { name: "Pending Lawyers", path: "/request", icon: <FaUserClock /> },
-    { name: "Lawyers", path: "/accepted", icon: <FaUserCheck /> },
-    { name: "Clients", path: "/clients", icon: <FaUsers /> },
-    { name: "Articles", path: "/articles", icon: <FaNewspaper /> },
-  ];
+  let navigate = useNavigate()
+  const isLogged = localStorage.getItem("uid");
+
+  const handleLogout = () => {
+    localStorage.removeItem("uid");
+    navigate("/login");
+  };
+  const links = isLogged
+    ? [
+        { name: "Dashboard", path: "/", icon: <FaHome /> },
+        { name: "Pending Lawyers", path: "/request", icon: <FaUserClock /> },
+        { name: "Lawyers", path: "/accepted", icon: <FaUserCheck /> },
+        { name: "Clients", path: "/clients", icon: <FaUsers /> },
+        { name: "Articles", path: "/articles", icon: <FaNewspaper /> },
+      ]
+    : [{ name: "login", path: "/login", icon: <FaUnlock /> }];
 
   return (
     <aside className="h-screen w-64 bgSecondary text-white fixed flex flex-col p-4">
@@ -38,7 +49,17 @@ export default function NavBar() {
             <span className="text-lg">{link.icon}</span>
             <span>{link.name}</span>
           </NavLink>
+          
         ))}
+        {isLogged && (
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-[#262b3e] transition-all text-left mt-4"
+          >
+            <FaSignOutAlt className="text-lg" />
+            <span>Logout</span>
+          </button>
+        )}
       </nav>
     </aside>
   );
