@@ -47,7 +47,7 @@ export default function ArticlesTable() {
 
           <div className="modal-action flex justify-end gap-2">
             <form method="dialog">
-              <button className="flex items-center gap-2 text-gray-200 hover:text-white border border-gray-700 hover:bg-gray-800 rounded-lg text-sm px-4 py-2">
+              <button className="flex items-center gap-2 text-gray-200 hover:text-white border border-gray-700 hover:bg-gray-500 rounded-lg text-sm px-4 py-3">
                 close
               </button>
             </form>
@@ -57,7 +57,7 @@ export default function ArticlesTable() {
                 await handleDelete(selectedPostId);
                 document.getElementById("deleted_modal").close();
               }}
-              className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 rounded-lg text-sm px-4 py-2"
+              className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
             >
               deleted
             </button>
@@ -75,7 +75,7 @@ export default function ArticlesTable() {
           <div className="modal-action">
             <form method="dialog">
 
-              <button className="btn text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center  dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+              <button className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
 
                 Close
               </button>
@@ -112,12 +112,13 @@ export default function ArticlesTable() {
                     />
                   </div>
 
-//               <td className='goldTxt'>{indexOfFirstPost + index + 1}</td>
+{/* //               <td className='goldTxt'>{indexOfFirstPost + index + 1}</td>
 //               <td>
 //                 <div className="avatar w-12 h-12">
 //                   <img src={post.imageUrl} alt="post" className='w-full h-auto rounded-lg' />
 //                    className="w-full h-auto rounded-lg"
 
+                </div> */}
                 </div>
               </td>
               <td

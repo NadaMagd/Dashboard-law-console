@@ -25,7 +25,7 @@ export default function LawyersBarChart({ Clients, Lawyers }) {
           <YAxis allowDecimals={false} />
           <Tooltip />
           <Legend />
-          <Bar dataKey="value" fill="#c9b38c" radius={[8, 8, 0, 0]} />
+          <Bar dataKey="value" fill="#687693" radius={[4, 4, 0, 0]} barSize={65} />
         </BarChart>
       </ResponsiveContainer>
     </div>

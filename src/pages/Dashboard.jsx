@@ -16,6 +16,7 @@ import LawyersBarChart from "../Components/LawyersBarChart";
 import ProgressCard from "../Components/ProgressBar";
 import UserDoughnutChart from "../Components/UserDoughnutChart";
 
+
 export default function Dashboard() {
   const [stats, setStats] = useState({
     clients: 0,
@@ -48,9 +49,9 @@ export default function Dashboard() {
   const consultationsTotal =
     stats.consultationsAccepted + stats.consultationsPending;
   return (
-    <div className="space-y-10 p-6 min-h-screen">
+    <div className="space-y-10 p-6 min-h-screen ">
       {/* Cards */}
-      <section className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 ">
         <StatCard
           icon={<FaUserTie size={24} />}
           title="Accepted Lawyers"
@@ -79,7 +80,7 @@ export default function Dashboard() {
       </section>
 
       {/* Progress Bars */}
-      <section className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      <section className="grid md:grid-cols-2 gap-2 max-w-10xl mx-auto">
         <div className="p-6">
           <ProgressCard
             title="Consultations Completed %"
@@ -100,7 +101,6 @@ export default function Dashboard() {
       {/* Charts Container */}
       <section className="flex flex-wrap justify-center gap-10 bgSecondary rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md">
         <div className="p-6 rounded-2xl w-full max-w-md">
-          
           <ConsultationPieChart
             accepted={stats.consultationsAccepted}
             pending={stats.consultationsPending}
@@ -123,9 +123,11 @@ export default function Dashboard() {
       </section>
 
       {/* Doughnut Chart */}
-      <section className="bgSecondary p-6 rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md max-w-4xl mx-auto">
-        <LawyersBarChart Clients={stats.clients} Lawyers={stats.lawyersTotal} />
-      </section>
+      {/* <section className="bgSecondary p-6 rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md max-w-lg  mx-auto">
+
+       
+        
+      </section> */}
     </div>
   );
 }

@@ -6,6 +6,7 @@ import RequestLawyers from "./pages/RrguesteLawyers";
 import Lawyers from "./pages/Lawyers";
 import Clients from "./pages/Clients";
 import ArticlesTable from "./pages/ArticlesTable";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/accepted" element={<Lawyers />} />
             <Route path="/clients" element={<Clients />} />
             <Route path="/articles" element={<ArticlesTable />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </div>
