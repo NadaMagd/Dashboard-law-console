@@ -2,7 +2,6 @@ import { useFormik } from "formik";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import * as Yup from "yup";
-import { UserContext } from "../Context/UserContext";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";

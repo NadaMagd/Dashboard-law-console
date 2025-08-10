@@ -9,7 +9,7 @@ import {
   FaUnlock,
   FaSignOutAlt
 } from "react-icons/fa";
-
+  
 export default function NavBar() {
   let navigate = useNavigate()
   const isLogged = localStorage.getItem("uid");

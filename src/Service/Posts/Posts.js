@@ -12,7 +12,7 @@ export async function getArticlesDate() {
         content: data.content,
         createdAt: data.createdAt,
         imageUrl: data.imageUrl,
-        likesCount: Array.isArray(data.likes) ? data.likes.length : 0,
+        likes: data.likes
       };
     });
     console.log(articles);
