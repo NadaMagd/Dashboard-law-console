@@ -156,7 +156,7 @@ export default function Clients() {
                 >
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#c9b38c] text-black text-xs font-bold">
+                      <span className="inline-flex items-center justify-center w-6 h-6 rounded-full  text-white text-xs font-bold">
                         {indexOfFirstClient + index + 1}
                       </span>
                     </div>
@@ -171,7 +171,7 @@ export default function Clients() {
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-blue-400"></div>
+                      <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></div>
                       <span className="text-gray-300 text-sm">
                         {client.email}
                       </span>
