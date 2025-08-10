@@ -112,37 +112,37 @@ export default function Lawyers() {
                 </th>
                 <th className="px-4 py-3  text-center text-xs font-medium text-[#c9b38c] uppercase tracking-wide">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#c9b38c]"></span>
+                    
                     Name
                   </div>
                 </th>
                 <th className="px-4 py-3  text-center text-xs font-medium text-[#c9b38c] uppercase tracking-wide">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#c9b38c]"></span>
+                    
                     Email
                   </div>
                 </th>
                 <th className="px-4 py-3  text-center text-xs font-medium text-[#c9b38c] uppercase tracking-wide">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#c9b38c]"></span>
+                    
                     Specialization
                   </div>
                 </th>
                 <th className="px-4 py-3  text-center text-xs font-medium text-[#c9b38c] uppercase tracking-wide">
                   <div className="flex items-center justify-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#c9b38c]"></span>
+                    
                     National ID
                   </div>
                 </th>
                 <th className="px-4 py-3  text-center text-xs font-medium text-[#c9b38c] uppercase tracking-wide">
                   <div className="flex items-center justify-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#c9b38c]"></span>
+                    
                     Lawyer's Card
                   </div>
                 </th>
                 <th className="px-4 py-3 text-center text-xs font-medium text-[#c9b38c] uppercase tracking-wide">
                   <div className="flex items-center justify-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#c9b38c]"></span>
+                    
                     Actions
                   </div>
                 </th>

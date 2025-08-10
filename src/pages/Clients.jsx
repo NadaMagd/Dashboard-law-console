@@ -124,25 +124,25 @@ export default function Clients() {
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-[#c9b38c] uppercase tracking-wide">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#c9b38c]"></span>
+                    
                     Name
                   </div>
                 </th>
                 <th className="px-4 py-3 text-left text-xs font-medium text-[#c9b38c] uppercase tracking-wide">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#c9b38c]"></span>
+                    
                     Email
                   </div>
                 </th>
                 <th className="px-4 py-3 text-center text-xs font-medium text-[#c9b38c] uppercase tracking-wide">
                   <div className="flex items-center justify-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#c9b38c]"></span>
+                    
                     Image
                   </div>
                 </th>
                 <th className="px-4 py-3 text-center text-xs font-medium text-[#c9b38c] uppercase tracking-wide">
                   <div className="flex items-center justify-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#c9b38c]"></span>
+                    
                     Actions
                   </div>
                 </th>
