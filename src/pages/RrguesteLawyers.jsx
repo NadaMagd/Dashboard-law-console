@@ -4,9 +4,9 @@ import {
   getInformationLawyers,
   rejectLawyer,
 } from "../Service/Lawers/Lawyers";
-import { TrashIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
-import Pagination from "./../Components/Pagetions";
-import CustomModal from "../Components/Model";
+import { TrashIcon, CheckCircleIcon, UserIcon, EnvelopeIcon, AcademicCapIcon, IdentificationIcon, DocumentIcon, EyeIcon } from "@heroicons/react/24/outline";
+import Pagination from "../components/Pagetions";
+import CustomModal from "../components/Model";
 
 export default function RequestLawyers() {
   const [requests, setRequests] = useState([]);
@@ -31,7 +31,7 @@ export default function RequestLawyers() {
   };
 
   const handleReject = async () => {
-    if (!message.trim()) return alert("من فضلك اكتب سبب الرفض");
+    if (!message.trim()) return alert("Please write a reason for rejection");
 
     await rejectLawyer(selectedLawyerId, message);
     setRequests((prev) =>
@@ -50,8 +50,43 @@ export default function RequestLawyers() {
   const totalPages = Math.ceil(requests.length / itemsPerPage);
 
   return (
-    <div className="overflow-x-auto p-6">
-      <h2 className="text-2xl goldTxt font-bold mb-4">Lawyers' Requests</h2>
+    <div className="space-y-6">
+      {/* Header Section */}
+      <div className="text-center mb-8">
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
+          Lawyers' Requests
+        </h1>
+        <p className="text-slate-400 text-lg">
+          Review and manage pending lawyer applications
+        </p>
+      </div>
+
+      {/* Stats Summary */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="card text-center">
+          <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-xl mb-4 mx-auto">
+            <UserIcon className="w-6 h-6 text-blue-400" />
+          </div>
+          <h3 className="text-2xl font-bold text-white mb-2">{requests.length}</h3>
+          <p className="text-slate-400">Total Requests</p>
+        </div>
+        
+        <div className="card text-center">
+          <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl mb-4 mx-auto">
+            <CheckCircleIcon className="w-6 h-6 text-green-400" />
+          </div>
+          <h3 className="text-2xl font-bold text-white mb-2">{requests.filter(r => r.specializations).length}</h3>
+          <p className="text-slate-400">With Specializations</p>
+        </div>
+        
+        <div className="card text-center">
+          <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl mb-4 mx-auto">
+            <DocumentIcon className="w-6 h-6 text-purple-400" />
+          </div>
+          <h3 className="text-2xl font-bold text-white mb-2">{requests.filter(r => r.idImageUrl && r.barAssociationImageUrl).length}</h3>
+          <p className="text-slate-400">Complete Documents</p>
+        </div>
+      </div>
 
       {/* Modal رفض */}
       <CustomModal
@@ -60,33 +95,38 @@ export default function RequestLawyers() {
           setSelectedLawyerId(null);
           setMessage("");
         }}
-        title="Refuse Lawyer"
+        title="Reject Lawyer"
       >
-        <input
-          type="text"
-          placeholder="Reason of rejection"
-          className="input input-bordered w-full mb-4"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
+        <div className="space-y-4">
+          <p className="text-slate-300 text-sm">
+            Please provide a reason for rejecting this lawyer's application.
+          </p>
+          <input
+            type="text"
+            placeholder="Reason for rejection"
+            className="input focus-ring"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
 
-        <div className="flex justify-end gap-4 mt-4">
-          <button
-            onClick={handleReject}
-            className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5"
-          >
-            Confirmation refuse
-          </button>
-
-          <button
-            onClick={() => {
-              setSelectedLawyerId(null);
-              setMessage("");
-            }}
-            className="border border-gray-500 text-gray-300 hover:text-white hover:bg-gray-500 font-medium rounded-lg text-sm px-4 py-2"
-          >
-            Cancel
-          </button>
+          <div className="flex justify-end gap-3 mt-6">
+            <button
+              onClick={() => {
+                setSelectedLawyerId(null);
+                setMessage("");
+              }}
+              className="btn btn-outline"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleReject}
+              className="btn btn-danger"
+            >
+              <TrashIcon className="w-4 h-4" />
+              Confirm Rejection
+            </button>
+          </div>
         </div>
       </CustomModal>
 
@@ -94,88 +134,155 @@ export default function RequestLawyers() {
       <CustomModal
         isOpen={!!selectedImage}
         onClose={() => setSelectedImage("")}
-        title="Lawyer Image"
+        title="Document Preview"
       >
-        <div className="relative">
-          <img
-            src={selectedImage}
-            alt="Lawyer Document"
-            className="w-full max-w-lg h-auto rounded-lg shadow-lg"
-          />
-          <button
-            onClick={() => setSelectedImage("")}
-            className="absolute top-2 right-2 w-8 h-8 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center"
-          >
-            ✕
-          </button>
-        </div>
-        <div className="flex justify-center mt-4">
-          <button
-            onClick={() => setSelectedImage("")}
-            className="px-6 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg"
-          >
-            Close
-          </button>
+        <div className="space-y-4">
+          <div className="relative">
+            <img
+              src={selectedImage}
+              alt="Lawyer Document"
+              className="w-full max-w-lg h-auto rounded-xl shadow-2xl border border-slate-600"
+            />
+            <button
+              onClick={() => setSelectedImage("")}
+              className="absolute top-3 right-3 w-8 h-8 bg-black/70 hover:bg-black/90 text-white rounded-full flex items-center justify-center transition-colors"
+            >
+              ✕
+            </button>
+          </div>
+          <div className="flex justify-center">
+            <button
+              onClick={() => setSelectedImage("")}
+              className="btn btn-outline"
+            >
+              Close
+            </button>
+          </div>
         </div>
       </CustomModal>
 
       {/* جدول */}
-      <div className="bg-gray-900/95 rounded-xl overflow-hidden shadow-xl border border-gray-700/30">
-        <div className="overflow-x-auto">
-          <table className="w-full text-white">
+      <div className="card">
+        <div className="card-header">
+          <div>
+            <h3 className="card-title">Pending Applications</h3>
+            <p className="card-subtitle">Review and manage lawyer requests</p>
+          </div>
+          <div className="flex items-center gap-2 text-slate-400">
+            <UserIcon className="w-5 h-5" />
+            <span className="text-sm font-medium">{requests.length} requests</span>
+          </div>
+        </div>
+
+        <div className="table-container">
+          <table className="table">
             <thead>
-              <tr className="bg-gray-800/50 border-b border-gray-700">
-                <th className="px-4 py-3 text-left text-xs font-medium text-[#c9b38c] uppercase tracking-wide"><div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-[#c9b38c]/20 flex items-center justify-center text-xs">#</span>
+              <tr>
+                <th>
+                  <div className="flex items-center gap-2">
+                    <span className="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center text-xs text-blue-400">#</span>
                     ID
-                  </div></th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-[#c9b38c] uppercase tracking-wide">Name</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-[#c9b38c] uppercase tracking-wide">Email</th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-[#c9b38c] uppercase tracking-wide">Specialization</th>
-                <th className="px-4 py-3 text-center text-xs font-medium text-[#c9b38c] uppercase tracking-wide">National ID</th>
-                <th className="px-4 py-3 text-center text-xs font-medium text-[#c9b38c] uppercase tracking-wide">Lawyer's Card</th>
-                <th className="px-4 py-3 text-center text-xs font-medium text-[#c9b38c] uppercase tracking-wide">Actions</th>
+                  </div>
+                </th>
+                <th>
+                  <div className="flex items-center gap-2">
+                    <UserIcon className="w-4 h-4" />
+                    Name
+                  </div>
+                </th>
+                <th>
+                  <div className="flex items-center gap-2">
+                    <EnvelopeIcon className="w-4 h-4" />
+                    Email
+                  </div>
+                </th>
+                <th>
+                  <div className="flex items-center gap-2">
+                    <AcademicCapIcon className="w-4 h-4" />
+                    Specialization
+                  </div>
+                </th>
+                <th className="text-center">
+                  <div className="flex items-center gap-2 justify-center">
+                    <IdentificationIcon className="w-4 h-4" />
+                    National ID
+                  </div>
+                </th>
+                <th className="text-center">
+                  <div className="flex items-center gap-2 justify-center">
+                    <DocumentIcon className="w-4 h-4" />
+                    Lawyer's Card
+                  </div>
+                </th>
+                <th className="text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-700/30">
+            <tbody>
               {currentRequests.map((request, index) => (
-                <tr
-                  key={request.id}
-                  className="hover:bg-gray-800/30 transition-colors duration-200"
-                >
-                  <td className="px-4 py-3">{indexOfFirstRequest + index + 1}</td>
-                  <td className="px-4 py-3">{request.name}</td>
-                  <td className="px-4 py-3">{request.email}</td>
-                  <td className="px-4 py-3">{request.specializations || "—"}</td>
-                  <td className="px-4 py-3 text-center">
-                    <img
-                      src={request.idImageUrl}
-                      alt="ID"
-                      className="w-10 h-10 rounded-lg object-cover cursor-pointer border border-gray-600 hover:border-[#c9b38c] hover:scale-105 transition-all"
-                      onClick={() => setSelectedImage(request.idImageUrl)}
-                    />
+                <tr key={request.id} className="hover:bg-slate-800/50 transition-colors duration-200">
+                  <td className="font-mono text-slate-300">{indexOfFirstRequest + index + 1}</td>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center">
+                        <UserIcon className="w-4 h-4 text-blue-400" />
+                      </div>
+                      <span className="font-medium text-white">{request.name}</span>
+                    </div>
                   </td>
-                  <td className="px-4 py-3 text-center">
-                    <img
-                      src={request.barAssociationImageUrl}
-                      alt="Card"
-                      className="w-10 h-10 rounded-lg object-cover cursor-pointer border border-gray-600 hover:border-[#c9b38c] hover:scale-105 transition-all"
-                      onClick={() => setSelectedImage(request.barAssociationImageUrl)}
-                    />
+                  <td>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                      <span className="text-slate-300">{request.email}</span>
+                    </div>
                   </td>
-                  <td className="px-4 py-3">
+                  <td>
+                    <span className="text-slate-300">{request.specializations || "—"}</span>
+                  </td>
+                  <td className="text-center">
+                    <div className="flex justify-center">
+                      <div className="relative group cursor-pointer">
+                        <img
+                          src={request.idImageUrl}
+                          alt="ID"
+                          className="w-12 h-12 rounded-lg object-cover border border-slate-600 hover:border-blue-400 hover:scale-105 transition-all duration-200"
+                          onClick={() => setSelectedImage(request.idImageUrl)}
+                        />
+                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
+                          <EyeIcon className="w-5 h-5 text-white" />
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="text-center">
+                    <div className="flex justify-center">
+                      <div className="relative group cursor-pointer">
+                        <img
+                          src={request.barAssociationImageUrl}
+                          alt="Card"
+                          className="w-12 h-12 rounded-lg object-cover border border-slate-600 hover:border-blue-400 hover:scale-105 transition-all duration-200"
+                          onClick={() => setSelectedImage(request.barAssociationImageUrl)}
+                        />
+                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
+                          <EyeIcon className="w-5 h-5 text-white" />
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
                     <div className="flex justify-center gap-2">
                       <button
                         onClick={() => setSelectedLawyerId(request.id)}
-                        className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-red-400 bg-red-500/10 border border-red-500/30 rounded-md hover:text-white hover:bg-red-500 hover:border-red-400 transition-colors"
+                        className="btn btn-danger btn-sm"
                       >
-                        <TrashIcon className="w-3 h-3" /> Refuse
+                        <TrashIcon className="w-3 h-3" />
+                        Reject
                       </button>
                       <button
                         onClick={() => handleApprove(request.id)}
-                        className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-green-400 bg-green-500/10 border border-green-500/30 rounded-md hover:text-white hover:bg-green-500 hover:border-green-400 transition-colors"
+                        className="btn btn-success btn-sm"
                       >
-                        <CheckCircleIcon className="w-3 h-3" /> Accept
+                        <CheckCircleIcon className="w-3 h-3" />
+                        Accept
                       </button>
                     </div>
                   </td>
@@ -186,11 +293,13 @@ export default function RequestLawyers() {
         </div>
       </div>
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={(page) => setCurrentPage(page)}
-      />
+      <div className="flex justify-center">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
+      </div>
     </div>
   );
 }
