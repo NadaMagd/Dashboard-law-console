@@ -5,16 +5,19 @@ import {
   FaUserClock,
   FaCheckCircle,
   FaClock,
+  FaChartLine,
+  FaUsers,
+  FaGavel,
 } from "react-icons/fa";
 
-import StatCard from "./../Components/StatCard";
+import StatCard from "../components/StatCard";
 import fetchConsultations from "../Service/Consultations/ConsultationsLogic";
 import { getClientsCount } from "../Service/Client/UserService";
 import { getLawyersNumbers } from "../Service/Lawers/Lawyers";
-import ConsultationPieChart from "../Components/ConsultationPieChart";
-import LawyersBarChart from "../Components/LawyersBarChart";
-import ProgressCard from "../Components/ProgressBar";
-import UserDoughnutChart from "../Components/UserDoughnutChart";
+import LawyersBarChart from "../components/LawyersBarChart";
+import ProgressCard from "../components/ProgressBar";
+import UserDoughnutChart from "../components/UserDoughnutChart";
+import ConsultationPieChart from "./../Components/ConsultationPieChart";
 
 export default function Dashboard() {
   const [stats, setStats] = useState({
@@ -26,6 +29,7 @@ export default function Dashboard() {
     lawyersTotal: 0,
   });
 
+  // get all data
   useEffect(() => {
     const fetchStats = async () => {
       const clients = await getClientsCount();
@@ -47,78 +51,126 @@ export default function Dashboard() {
 
   const consultationsTotal =
     stats.consultationsAccepted + stats.consultationsPending;
-  return (
-    <div className="space-y-10 p-6 min-h-screen ">
-      <h2 className="text-2xl goldTxt font-bold mb-4">Dashboard</h2>
 
-      {/* Cards */}
-      <section className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 ">
+  return (
+    <div className="space-y-8 p-6 min-h-screen fade-in">
+      {/* Header Section */}
+      <div className="text-center mb-8">
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
+          Welcome to Law Counsel
+        </h1>
+        <p className="text-slate-400 text-lg">
+          Professional Legal Management Dashboard
+        </p>
+      </div>
+
+      {/* Stats Cards */}
+      <section className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
         <StatCard
-          icon={<FaUserTie size={24} />}
+          icon={<FaUserTie />}
           title="Accepted Lawyers"
           value={stats.lawyersAccepted}
         />
         <StatCard
-          icon={<FaUserClock size={24} />}
+          icon={<FaUserClock />}
           title="Pending Lawyers"
           value={stats.lawyersPending}
         />
         <StatCard
-          icon={<FaUserFriends size={24} />}
-          title="Clients"
+          icon={<FaUsers />}
+          title="Total Clients"
           value={stats.clients}
         />
         <StatCard
-          icon={<FaCheckCircle size={24} />}
+          icon={<FaCheckCircle />}
           title="Accepted Consultations"
           value={stats.consultationsAccepted}
         />
         <StatCard
-          icon={<FaClock size={24} />}
+          icon={<FaClock />}
           title="Pending Consultations"
           value={stats.consultationsPending}
         />
       </section>
 
-      {/* Progress Bars */}
-      <section className="grid md:grid-cols-2 gap-2 max-w-10xl mx-auto">
-        <div className="p-6">
+      {/* Progress Section */}
+      <section className="grid md:grid-cols-2 gap-6">
+        <div className="card">
+          <div className="card-header">
+            <div>
+              <h3 className="card-title">Consultations Progress</h3>
+              <p className="card-subtitle">Completion rate overview</p>
+            </div>
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-xl flex items-center justify-center">
+              <FaChartLine className="text-blue-400 text-xl" />
+            </div>
+          </div>
           <ProgressCard
-            title="Consultations Completed %"
+            title="Consultations Completed"
             value={stats.consultationsAccepted}
             total={consultationsTotal}
           />
         </div>
 
-        <div className=" p-6">
+        <div className="card">
+          <div className="card-header">
+            <div>
+              <h3 className="card-title">Lawyers Approval Rate</h3>
+              <p className="card-subtitle">Acceptance statistics</p>
+            </div>
+            <div className="w-12 h-12 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl flex items-center justify-center">
+              <FaGavel className="text-green-400 text-xl" />
+            </div>
+          </div>
           <ProgressCard
-            title="Lawyers Accepted %"
+            title="Lawyers Accepted"
             value={stats.lawyersAccepted}
             total={stats.lawyersTotal}
           />
         </div>
       </section>
 
-      {/* Charts Container */}
-      <section className="flex flex-wrap justify-center items-center gap-10 p-6 rounded-2xl overflow-hidden text-white">
-        <div className="flex items-center justify-center p-6 rounded-2xl w-full max-w-lg shadow-neutral-600 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.01] bgSecondary">
-          <ConsultationPieChart
-            accepted={stats.consultationsAccepted}
-            pending={stats.consultationsPending}
-          />
+      {/* Charts Section */}
+      <section className="grid lg:grid-cols-2 gap-6">
+        <div className="card">
+          <div className="card-header">
+            <h3 className="card-title">Consultations Distribution</h3>
+            <p className="card-subtitle">Accepted vs Pending</p>
+          </div>
+          <div className="flex items-center justify-center p-6">
+            <ConsultationPieChart
+              accepted={stats.consultationsAccepted}
+              pending={stats.consultationsPending}
+            />
+          </div>
         </div>
 
-        <div className="flex flex-wrap justify-center p-6 rounded-2xl w-full max-w-lg shadow-neutral-600 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.01] bgSecondary">
-          <UserDoughnutChart
-            Pending={stats.lawyersPending}
-            Accepted={stats.lawyersAccepted}
-          />
+        <div className="card">
+          <div className="card-header">
+            <h3 className="card-title">Lawyers Status</h3>
+            <p className="card-subtitle">Pending vs Accepted</p>
+          </div>
+          <div className="flex items-center justify-center p-6">
+            <UserDoughnutChart
+              Pending={stats.lawyersPending}
+              Accepted={stats.lawyersAccepted}
+            />
+          </div>
         </div>
       </section>
 
-      {/* Doughnut Chart */}
-      <section className="bgSecondary p-6 rounded-2xl overflow-hidden text-white shadow-neutral-600 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.01] max-w-2xlg  mx-auto ">
-        <LawyersBarChart Clients={stats.clients} Lawyers={stats.lawyersTotal} />
+      {/* Main Chart */}
+      <section className="card">
+        <div className="card-header">
+          <h3 className="card-title">Clients vs Lawyers Overview</h3>
+          <p className="card-subtitle">Total population comparison</p>
+        </div>
+        <div className="p-6">
+          <LawyersBarChart
+            Clients={stats.clients}
+            Lawyers={stats.lawyersTotal}
+          />
+        </div>
       </section>
     </div>
   );

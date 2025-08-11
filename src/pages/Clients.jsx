@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { AllClients, deleteClient } from "../Service/Client/UserService";
-import { TrashIcon } from "@heroicons/react/24/outline";
-import Pagination from "./../Components/Pagetions";
-import CustomModal from "./../Components/Model";
+import { TrashIcon, EyeIcon, UserIcon, EnvelopeIcon, PhotoIcon, UsersIcon } from "@heroicons/react/24/outline";
+import Pagination from "../components/Pagetions";
+import CustomModal from "../components/Model";
 
 export default function Clients() {
   const [Clients, setClients] = useState([]);
@@ -27,7 +27,7 @@ export default function Clients() {
   const totalPages = Math.ceil(Clients.length / itemsPerPage);
 
   const handleReject = async () => {
-    if (!message.trim()) return alert("من فضلك اكتب سبب الرفض");
+    if (!message.trim()) return alert("Please write a reason for blocking");
 
     await deleteClient(selectedClientId, message);
     setClients((prev) =>
@@ -38,170 +38,210 @@ export default function Clients() {
   };
 
   return (
-    <div className="overflow-x-auto p-6">
-      <h2 className="text-2xl goldTxt font-bold mb-4">Clients</h2>
+    <div className="space-y-6 p-6 fade-in">
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-2">
+          Clients Management
+        </h1>
+        <p className="text-slate-400 text-lg">
+          Manage and monitor client accounts in the system
+        </p>
+      </div>
 
-      {/* Modal رفض */}
+      {/* Stats Summary */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="card text-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <UsersIcon className="w-8 h-8 text-purple-400" />
+          </div>
+          <h3 className="text-2xl font-bold text-white mb-2">{Clients.length}</h3>
+          <p className="text-slate-400">Total Clients</p>
+        </div>
+        
+        <div className="card text-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <PhotoIcon className="w-8 h-8 text-blue-400" />
+          </div>
+          <h3 className="text-2xl font-bold text-white mb-2">
+            {Clients.filter(client => client.imageUrl).length}
+          </h3>
+          <p className="text-slate-400">With Profile Images</p>
+        </div>
+        
+        <div className="card text-center">
+          <div className="w-16 h-16 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <UserIcon className="w-8 h-8 text-green-400" />
+          </div>
+          <h3 className="text-2xl font-bold text-white mb-2">
+            {Clients.filter(client => client.name).length}
+          </h3>
+          <p className="text-slate-400">Named Clients</p>
+        </div>
+      </div>
+
+      {/* Block Client Modal */}
       <CustomModal
         isOpen={!!selectedClientId}
         onClose={() => {
           setSelectedClientId(null);
           setMessage("");
         }}
-        title="Client block"
+        title="Block Client"
       >
-        <input
-          type="text"
-          placeholder="Reason of rejected"
-          className="input input-bordered w-full mb-4 "
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-
-        <div className="flex justify-end gap-4 mt-4">
-          <button
-            onClick={handleReject}
-            className="flex items-center gap-2 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-          >
-            Confirmation refuse
-          </button>
-
-          <button
-            onClick={() => {
-              setSelectedClientId(null);
-              setMessage("");
-            }}
-            className="border border-gray-500 text-gray-300 hover:text-white hover:bg-gray-500 font-medium rounded-lg text-sm px-4 py-2"
-          >
-            Cancel
-          </button>
+        <div className="space-y-4">
+          <p className="text-slate-300">Please provide a reason for blocking this client:</p>
+          <input
+            type="text"
+            placeholder="Reason for blocking"
+            className="input focus-ring"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <div className="flex justify-end gap-3">
+            <button
+              onClick={() => {
+                setSelectedClientId(null);
+                setMessage("");
+              }}
+              className="btn btn-outline"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleReject}
+              className="btn btn-danger"
+            >
+              Confirm Block
+            </button>
+          </div>
         </div>
       </CustomModal>
 
-      {/* Modal صورة */}
+      {/* Image Preview Modal */}
       <CustomModal
         isOpen={!!selectedImage}
         onClose={() => setSelectedImage("")}
-        title="Client Image"
+        title="Client Profile Image"
       >
-        <div className="relative">
-          <img
-            src={selectedImage}
-            alt="صورة العميل"
-            className="w-full max-w-lg h-auto rounded-lg shadow-lg"
-          />
-          
-          {/* زر الإغلاق في الزاوية */}
-          <button
-            onClick={() => setSelectedImage("")}
-            className="absolute top-2 right-2 w-8 h-8 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center transition-colors duration-200"
-          >
-            ✕
-          </button>
-        </div>
-
-        <div className="flex justify-center mt-4">
-          <button
-            onClick={() => setSelectedImage("")}
-            className="px-6 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors duration-200"
-          >
-            Close
-          </button>
+        <div className="space-y-4">
+          <div className="relative">
+            <img
+              src={selectedImage}
+              alt="Client Profile"
+              className="w-full max-w-lg h-auto rounded-lg border border-slate-600"
+            />
+            <button
+              onClick={() => setSelectedImage("")}
+              className="absolute top-2 right-2 w-8 h-8 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center transition-colors duration-200"
+            >
+              ✕
+            </button>
+          </div>
+          <div className="flex justify-center">
+            <button
+              onClick={() => setSelectedImage("")}
+              className="btn btn-outline"
+            >
+              Close
+            </button>
+          </div>
         </div>
       </CustomModal>
 
-      {/* جدول العملاء */}
-      <div className="bg-gray-900/95 rounded-xl overflow-hidden shadow-xl border border-gray-700/30">
-        <div className="overflow-x-auto">
-          <table className="w-full text-white">
+      {/* Clients Table */}
+      <div className="card">
+        <div className="card-header">
+          <div>
+            <h3 className="card-title">Client Accounts</h3>
+            <p className="card-subtitle">Manage client profiles and access</p>
+          </div>
+          <div className="w-12 h-12 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl flex items-center justify-center">
+            <UsersIcon className="text-purple-400 text-xl" />
+          </div>
+        </div>
+        
+        <div className="table-container">
+          <table className="table">
             <thead>
-              <tr className="bg-gray-800/50 border-b border-gray-700">
-                <th className="px-4 py-3 text-left text-xs font-medium text-[#c9b38c] uppercase tracking-wide">
+              <tr>
+                <th>
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-[#c9b38c]/20 flex items-center justify-center text-xs">#</span>
+                    <span className="w-6 h-6 rounded-full bg-slate-600 flex items-center justify-center text-xs font-bold">#</span>
                     ID
                   </div>
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-[#c9b38c] uppercase tracking-wide">
+                <th>
                   <div className="flex items-center gap-2">
-                    
+                    <UserIcon className="w-4 h-4" />
                     Name
                   </div>
                 </th>
-                <th className="px-4 py-3 text-left text-xs font-medium text-[#c9b38c] uppercase tracking-wide">
+                <th>
                   <div className="flex items-center gap-2">
-                    
+                    <EnvelopeIcon className="w-4 h-4" />
                     Email
                   </div>
                 </th>
-                <th className="px-4 py-3 text-center text-xs font-medium text-[#c9b38c] uppercase tracking-wide">
+                <th className="text-center">
                   <div className="flex items-center justify-center gap-2">
-                    
-                    Image
+                    <PhotoIcon className="w-4 h-4" />
+                    Profile Image
                   </div>
                 </th>
-                <th className="px-4 py-3 text-center text-xs font-medium text-[#c9b38c] uppercase tracking-wide">
-                  <div className="flex items-center justify-center gap-2">
-                    
-                    Actions
-                  </div>
-                </th>
+                <th className="text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-700/30">
+            <tbody>
               {currentClients.map((client, index) => (
                 <tr 
                   key={client.id} 
-                  className="hover:bg-gray-800/30 transition-colors duration-200"
+                  className="hover:bg-slate-700/30 transition-colors duration-200"
                 >
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-2">
-                      <span className="inline-flex items-center justify-center w-6 h-6 rounded-full  text-white text-xs font-bold">
-                        {indexOfFirstClient + index + 1}
+                  <td>
+                    <span className="inline-flex items-center justify-center w-8 h-8 bg-slate-600 rounded-full text-white text-sm font-bold">
+                      {indexOfFirstClient + index + 1}
+                    </span>
+                  </td>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                        <UserIcon className="w-5 h-5 text-white" />
+                      </div>
+                      <span className="font-medium text-white">
+                        {client.name || "Unnamed Client"}
                       </span>
                     </div>
                   </td>
-                  <td className="px-4 py-3">
+                  <td>
                     <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
-                      <span className="text-gray-200 font-medium text-sm">
-                        {client.name}
-                      </span>
+                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                      <span className="text-slate-300">{client.email}</span>
                     </div>
                   </td>
-                  <td className="px-4 py-3">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></div>
-                      <span className="text-gray-300 text-sm">
-                        {client.email}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="flex justify-center">
+                  <td className="text-center">
+                    <button
+                      onClick={() => setSelectedImage(client.imageUrl)}
+                      className="group relative"
+                    >
                       <img
                         src={client.imageUrl}
-                        alt="صورة العميل"
-                        className="w-10 h-10 rounded-lg object-cover cursor-pointer border border-gray-600 hover:border-[#c9b38c] hover:scale-105 transition-all duration-200"
-                        onClick={() => {
-                          setSelectedImage(client.imageUrl);
-                        }}
+                        alt="Client Profile"
+                        className="w-12 h-12 rounded-lg object-cover border-2 border-slate-600 group-hover:border-purple-400 transition-all duration-200 group-hover:scale-105"
                       />
-                    </div>
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
+                        <EyeIcon className="w-5 h-5 text-white" />
+                      </div>
+                    </button>
                   </td>
-                  <td className="px-4 py-3">
-                    <div className="flex justify-center">
-                      <button
-                        onClick={() => {
-                          setSelectedClientId(client.id);
-                        }}
-                        type="button"
-                        className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-red-400 bg-red-500/10 border border-red-500/30 rounded-md hover:text-white hover:bg-red-500 hover:border-red-400 transition-colors duration-200"
-                      >
-                        <TrashIcon className="w-3 h-3" />
-                        Refuse
-                      </button>
-                    </div>
+                  <td className="text-center">
+                    <button
+                      onClick={() => setSelectedClientId(client.id)}
+                      className="btn btn-danger btn-sm"
+                    >
+                      <TrashIcon className="w-4 h-4" />
+                      Block
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -210,16 +250,19 @@ export default function Clients() {
         </div>
       </div>
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={(page) => setCurrentPage(page)}
-        rowsPerPage={itemsPerPage}
-        onRowsPerPageChange={(newItemsPerPage) => {
-          setItemsPerPage(newItemsPerPage);
-          setCurrentPage(1); // Reset to first page when changing items per page
-        }}
-      />
+      {/* Pagination */}
+      <div className="flex justify-center">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={(page) => setCurrentPage(page)}
+          rowsPerPage={itemsPerPage}
+          onRowsPerPageChange={(newItemsPerPage) => {
+            setItemsPerPage(newItemsPerPage);
+            setCurrentPage(1);
+          }}
+        />
+      </div>
     </div>
   );
 }
