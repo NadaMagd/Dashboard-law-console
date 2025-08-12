@@ -8,16 +8,21 @@ import {
   FaChartLine,
   FaUsers,
   FaGavel,
+  FaDollarSign,
 } from "react-icons/fa";
 
+//component
 import StatCard from "../components/StatCard";
-import fetchConsultations from "../Service/Consultations/ConsultationsLogic";
-import { getClientsCount } from "../Service/Client/UserService";
-import { getLawyersNumbers } from "../Service/Lawers/Lawyers";
 import LawyersBarChart from "../components/LawyersBarChart";
 import ProgressCard from "../components/ProgressBar";
 import UserDoughnutChart from "../components/UserDoughnutChart";
 import ConsultationPieChart from "./../Components/ConsultationPieChart";
+
+//service
+import fetchConsultations from "../Service/Consultations/ConsultationsLogic";
+import { getClientsCount } from "../Service/Client/UserService";
+import { getLawyersNumbers } from "../Service/Lawers/Lawyers";
+import TotalProfit from "../Service/totalProfit";
 
 export default function Dashboard() {
   const [stats, setStats] = useState({
@@ -27,6 +32,7 @@ export default function Dashboard() {
     consultationsAccepted: 0,
     consultationsPending: 0,
     lawyersTotal: 0,
+    profit: 0,
   });
 
   // get all data
@@ -35,6 +41,7 @@ export default function Dashboard() {
       const clients = await getClientsCount();
       const lawyerStats = await getLawyersNumbers();
       const consultStats = await fetchConsultations();
+      const totalProfit = await TotalProfit();
 
       setStats({
         clients,
@@ -43,6 +50,7 @@ export default function Dashboard() {
         lawyersTotal: lawyerStats.total,
         consultationsAccepted: consultStats.acceptsStatus,
         consultationsPending: consultStats.pendingStatus,
+        profit: totalProfit.balance,
       });
     };
 
@@ -65,7 +73,7 @@ export default function Dashboard() {
       </div>
 
       {/* Stats Cards */}
-      <section className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+      <section className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <StatCard
           icon={<FaUserTie />}
           title="Accepted Lawyers"
@@ -90,6 +98,11 @@ export default function Dashboard() {
           icon={<FaClock />}
           title="Pending Consultations"
           value={stats.consultationsPending}
+        />
+        <StatCard
+          icon={<FaDollarSign />}
+          title="Total profit"
+          value={`$ ${stats.profit}`}
         />
       </section>
 
