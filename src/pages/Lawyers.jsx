@@ -136,7 +136,7 @@ export default function Lawyers() {
           <img
             src={selectedImage}
             alt="Document"
-            className="w-full max-w-lg h-auto rounded-lg border border-slate-600"
+            className="w-full max-w-lg h-auto rounded-lg border border-slate-600 m-auto mb-4"
           />
           <div className="flex justify-center">
             <button

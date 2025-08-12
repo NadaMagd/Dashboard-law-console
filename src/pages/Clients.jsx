@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { AllClients, deleteClient } from "../Service/Client/UserService";
-import { TrashIcon, EyeIcon, UserIcon, EnvelopeIcon, PhotoIcon, UsersIcon } from "@heroicons/react/24/outline";
+import {
+  TrashIcon,
+  EyeIcon,
+  UserIcon,
+  EnvelopeIcon,
+  PhotoIcon,
+  UsersIcon,
+} from "@heroicons/react/24/outline";
 import Pagination from "../components/Pagetions";
 import CustomModal from "../components/Model";
 
@@ -55,26 +62,28 @@ export default function Clients() {
           <div className="w-16 h-16 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <UsersIcon className="w-8 h-8 text-purple-400" />
           </div>
-          <h3 className="text-2xl font-bold text-white mb-2">{Clients.length}</h3>
+          <h3 className="text-2xl font-bold text-white mb-2">
+            {Clients.length}
+          </h3>
           <p className="text-slate-400">Total Clients</p>
         </div>
-        
+
         <div className="card text-center">
           <div className="w-16 h-16 bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <PhotoIcon className="w-8 h-8 text-blue-400" />
           </div>
           <h3 className="text-2xl font-bold text-white mb-2">
-            {Clients.filter(client => client.imageUrl).length}
+            {Clients.filter((client) => client.imageUrl).length}
           </h3>
           <p className="text-slate-400">With Profile Images</p>
         </div>
-        
+
         <div className="card text-center">
           <div className="w-16 h-16 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <UserIcon className="w-8 h-8 text-green-400" />
           </div>
           <h3 className="text-2xl font-bold text-white mb-2">
-            {Clients.filter(client => client.name).length}
+            {Clients.filter((client) => client.name).length}
           </h3>
           <p className="text-slate-400">Named Clients</p>
         </div>
@@ -90,7 +99,9 @@ export default function Clients() {
         title="Block Client"
       >
         <div className="space-y-4">
-          <p className="text-slate-300">Please provide a reason for blocking this client:</p>
+          <p className="text-slate-300">
+            Please provide a reason for blocking this client:
+          </p>
           <input
             type="text"
             placeholder="Reason for blocking"
@@ -108,10 +119,7 @@ export default function Clients() {
             >
               Cancel
             </button>
-            <button
-              onClick={handleReject}
-              className="btn btn-danger"
-            >
+            <button onClick={handleReject} className="btn btn-danger">
               Confirm Block
             </button>
           </div>
@@ -129,7 +137,7 @@ export default function Clients() {
             <img
               src={selectedImage}
               alt="Client Profile"
-              className="w-full max-w-lg h-auto rounded-lg border border-slate-600"
+              className="w-full max-w-lg h-auto rounded-lg border border-slate-600 m-auto"
             />
             <button
               onClick={() => setSelectedImage("")}
@@ -160,14 +168,16 @@ export default function Clients() {
             <UsersIcon className="text-purple-400 text-xl" />
           </div>
         </div>
-        
+
         <div className="table-container">
           <table className="table">
             <thead>
               <tr>
                 <th>
                   <div className="flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-full bg-slate-600 flex items-center justify-center text-xs font-bold">#</span>
+                    <span className="w-6 h-6 rounded-full bg-slate-600 flex items-center justify-center text-xs font-bold">
+                      #
+                    </span>
                     ID
                   </div>
                 </th>
@@ -194,8 +204,8 @@ export default function Clients() {
             </thead>
             <tbody>
               {currentClients.map((client, index) => (
-                <tr 
-                  key={client.id} 
+                <tr
+                  key={client.id}
                   className="hover:bg-slate-700/30 transition-colors duration-200"
                 >
                   <td>
@@ -227,7 +237,7 @@ export default function Clients() {
                       <img
                         src={client.imageUrl}
                         alt="Client Profile"
-                        className="w-12 h-12 rounded-lg object-cover border-2 border-slate-600 group-hover:border-purple-400 transition-all duration-200 group-hover:scale-105"
+                        className="w-12 h-12 rounded-lg object-cover border-2 border-slate-600 group-hover:border-purple-400 transition-all duration-200 group-hover:scale-105 "
                       />
                       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
                         <EyeIcon className="w-5 h-5 text-white" />

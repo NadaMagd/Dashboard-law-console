@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { deleteArticle, getArticlesDate } from "../Service/Posts/Posts";
-import { TrashIcon, EyeIcon, DocumentTextIcon, PhotoIcon, HeartIcon, UserGroupIcon } from "@heroicons/react/24/outline";
+import {
+  TrashIcon,
+  EyeIcon,
+  DocumentTextIcon,
+  PhotoIcon,
+  HeartIcon,
+  UserGroupIcon,
+} from "@heroicons/react/24/outline";
 import Pagination from "../components/Pagetions";
 import CustomModal from "../components/Model";
 
@@ -50,31 +57,39 @@ export default function ArticlesTable() {
           <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-xl mb-4 mx-auto">
             <DocumentTextIcon className="w-6 h-6 text-blue-400" />
           </div>
-          <h3 className="text-2xl font-bold text-white mb-2">{articles.length}</h3>
+          <h3 className="text-2xl font-bold text-white mb-2">
+            {articles.length}
+          </h3>
           <p className="text-slate-400">Total Articles</p>
         </div>
-        
+
         <div className="card text-center">
           <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl mb-4 mx-auto">
             <PhotoIcon className="w-6 h-6 text-green-400" />
           </div>
-          <h3 className="text-2xl font-bold text-white mb-2">{articles.filter(a => a.imageUrl).length}</h3>
+          <h3 className="text-2xl font-bold text-white mb-2">
+            {articles.filter((a) => a.imageUrl).length}
+          </h3>
           <p className="text-slate-400">With Images</p>
         </div>
-        
+
         <div className="card text-center">
           <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-pink-500/20 to-rose-500/20 rounded-xl mb-4 mx-auto">
             <HeartIcon className="w-6 h-6 text-pink-400" />
           </div>
-          <h3 className="text-2xl font-bold text-white mb-2">{articles.reduce((total, a) => total + (a.likes?.length || 0), 0)}</h3>
+          <h3 className="text-2xl font-bold text-white mb-2">
+            {articles.reduce((total, a) => total + (a.likes?.length || 0), 0)}
+          </h3>
           <p className="text-slate-400">Total Likes</p>
         </div>
-        
+
         <div className="card text-center">
           <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-purple-500/20 to-indigo-500/20 rounded-xl mb-4 mx-auto">
             <UserGroupIcon className="w-6 h-6 text-purple-400" />
           </div>
-          <h3 className="text-2xl font-bold text-white mb-2">{articles.filter(a => a.likes && a.likes.length > 0).length}</h3>
+          <h3 className="text-2xl font-bold text-white mb-2">
+            {articles.filter((a) => a.likes && a.likes.length > 0).length}
+          </h3>
           <p className="text-slate-400">Engaged Articles</p>
         </div>
       </div>
@@ -94,10 +109,11 @@ export default function ArticlesTable() {
               Delete Article
             </h3>
             <p className="text-slate-300 text-sm">
-              Are you sure you want to delete this article? This action cannot be undone.
+              Are you sure you want to delete this article? This action cannot
+              be undone.
             </p>
           </div>
-          
+
           <div className="flex justify-end gap-3 mt-6">
             <button
               onClick={() => setSelectedPostId(null)}
@@ -105,10 +121,7 @@ export default function ArticlesTable() {
             >
               Cancel
             </button>
-            <button
-              onClick={handleDelete}
-              className="btn btn-danger"
-            >
+            <button onClick={handleDelete} className="btn btn-danger">
               <TrashIcon className="w-4 h-4" />
               Delete Article
             </button>
@@ -127,21 +140,17 @@ export default function ArticlesTable() {
             <img
               src={selectedImg}
               alt="Article"
-              className="w-full max-w-lg h-auto rounded-xl shadow-2xl border border-slate-600"
+              className="w-full max-w-lg h-auto rounded-xl shadow-2xl border border-slate-600 m-auto"
             />
-            <button
-              onClick={() => setSelectedImg("")}
-              className="absolute top-3 right-3 w-8 h-8 bg-black/70 hover:bg-black/90 text-white rounded-full flex items-center justify-center transition-colors"
-            >
-              ✕
-            </button>
           </div>
-          
+
           <div className="bg-slate-800/50 rounded-lg p-4">
             <h4 className="text-white font-semibold mb-2">Content:</h4>
-            <p className="text-slate-300 text-sm leading-relaxed">{selectedPostContent}</p>
+            <p className="text-slate-300 text-sm leading-relaxed text-center">
+              {selectedPostContent}
+            </p>
           </div>
-          
+
           <div className="flex justify-center">
             <button
               onClick={() => setSelectedImg("")}
@@ -158,11 +167,15 @@ export default function ArticlesTable() {
         <div className="card-header">
           <div>
             <h3 className="card-title">Published Articles</h3>
-            <p className="card-subtitle">Manage content and monitor engagement</p>
+            <p className="card-subtitle">
+              Manage content and monitor engagement
+            </p>
           </div>
           <div className="flex items-center gap-2 text-slate-400">
             <DocumentTextIcon className="w-5 h-5" />
-            <span className="text-sm font-medium">{articles.length} articles</span>
+            <span className="text-sm font-medium">
+              {articles.length} articles
+            </span>
           </div>
         </div>
 
@@ -172,7 +185,9 @@ export default function ArticlesTable() {
               <tr>
                 <th className="text-center">
                   <div className="flex items-center gap-2 justify-center">
-                    <span className="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center text-xs text-blue-400">#</span>
+                    <span className="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center text-xs text-blue-400">
+                      #
+                    </span>
                     ID
                   </div>
                 </th>
@@ -199,7 +214,10 @@ export default function ArticlesTable() {
             </thead>
             <tbody>
               {currentPosts.map((post, index) => (
-                <tr key={post.id} className="hover:bg-slate-800/50 transition-colors duration-200">
+                <tr
+                  key={post.id}
+                  className="hover:bg-slate-800/50 transition-colors duration-200"
+                >
                   <td className="text-center">
                     <div className="flex items-center justify-center">
                       <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-500/20 text-white text-sm font-bold border border-blue-500/30">
@@ -226,7 +244,7 @@ export default function ArticlesTable() {
                     </div>
                   </td>
                   <td className="text-center">
-                    <div 
+                    <div
                       className="flex items-center justify-center gap-2 cursor-pointer hover:text-blue-400 transition-colors duration-200"
                       onClick={() => {
                         setSelectedPostContent(post.content);
@@ -242,7 +260,9 @@ export default function ArticlesTable() {
                   <td className="text-center">
                     <div className="flex items-center justify-center gap-2">
                       <HeartIcon className="w-4 h-4 text-pink-400" />
-                      <span className="text-white font-medium">{post.likes?.length || 0}</span>
+                      <span className="text-white font-medium">
+                        {post.likes?.length || 0}
+                      </span>
                     </div>
                   </td>
                   <td className="text-center">
