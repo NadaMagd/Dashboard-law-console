@@ -131,18 +131,23 @@ export default function ArticlesTable() {
 
       {/* Modal عرض الصورة والمحتوى */}
       <CustomModal
-        isOpen={!!selectedImg}
-        onClose={() => setSelectedImg("")}
+        isOpen={!!selectedPostContent}
+        onClose={() => {
+          setSelectedImg("");
+          setSelectedPostContent("");
+        }}
         title="Article Preview"
       >
         <div className="space-y-4">
-          <div className="relative">
-            <img
-              src={selectedImg}
-              alt="Article"
-              className="w-full max-w-lg h-auto rounded-xl shadow-2xl border border-slate-600 m-auto"
-            />
-          </div>
+          {selectedImg && (
+            <div className="relative">
+              <img
+                src={selectedImg}
+                alt="Article"
+                className="w-full max-w-lg h-auto rounded-xl shadow-2xl border border-slate-600 m-auto"
+              />
+            </div>
+          )}
 
           <div className="bg-slate-800/50 rounded-lg p-4">
             <h4 className="text-white font-semibold mb-2">Content:</h4>
@@ -153,7 +158,10 @@ export default function ArticlesTable() {
 
           <div className="flex justify-center">
             <button
-              onClick={() => setSelectedImg("")}
+              onClick={() => {
+                setSelectedImg("");
+                setSelectedPostContent("");
+              }}
               className="btn btn-outline"
             >
               Close
