@@ -9,8 +9,8 @@ import {
   IdentificationIcon,
   DocumentIcon,
 } from "@heroicons/react/24/outline";
-import Pagination from "../components/Pagetions";
-import CustomModal from "../components/Model";
+import Pagination from "../Components/Pagetions";
+import CustomModal from "../Components/Model";
 
 export default function Lawyers() {
   const [requests, setRequests] = useState([]);

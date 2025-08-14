@@ -12,9 +12,9 @@ import {
 } from "react-icons/fa";
 
 //component
-import LawyersBarChart from "../components/LawyersBarChart";
-import ProgressCard from "../components/ProgressBar";
-import UserDoughnutChart from "../components/UserDoughnutChart";
+import LawyersBarChart from "../Components/LawyersBarChart";
+import ProgressCard from "../Components/ProgressBar";
+import UserDoughnutChart from "../Components/UserDoughnutChart";
 import ConsultationPieChart from "./../Components/ConsultationPieChart";
 
 //service

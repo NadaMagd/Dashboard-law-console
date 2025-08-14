@@ -5,8 +5,8 @@ import {
   rejectLawyer,
 } from "../Service/Lawers/Lawyers";
 import { TrashIcon, CheckCircleIcon, UserIcon, EnvelopeIcon, AcademicCapIcon, IdentificationIcon, DocumentIcon, EyeIcon } from "@heroicons/react/24/outline";
-import Pagination from "../components/Pagetions";
-import CustomModal from "../components/Model";
+import Pagination from "../Components/Pagetions";
+import CustomModal from "../Components/Model";
 
 export default function RequestLawyers() {
   const [requests, setRequests] = useState([]);
