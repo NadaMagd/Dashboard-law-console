@@ -12,6 +12,8 @@ import {
   FaBars,
   FaChevronRight,
 } from "react-icons/fa";
+ 
+import logo from "/public/img1.svg";
 
 export default function NavBar({
   collapsed = false,
@@ -90,7 +92,7 @@ export default function NavBar({
             collapsed ? "w-12 h-12" : "w-16 h-16"
           } bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-blue-500/30 group-hover:from-blue-500/30 group-hover:to-purple-500/30 rounded-2xl shadow-lg overflow-hidden`}
         >
-          <img src="../../public/img1.svg" />
+          <img src={logo} alt="Logo" />
         </div>
         {!collapsed && (
           <div className="ml-3 flex-1">
