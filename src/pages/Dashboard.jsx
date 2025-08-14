@@ -12,7 +12,6 @@ import {
 } from "react-icons/fa";
 
 //component
-import StatCard from "../components/StatCard";
 import LawyersBarChart from "../components/LawyersBarChart";
 import ProgressCard from "../components/ProgressBar";
 import UserDoughnutChart from "../components/UserDoughnutChart";
@@ -23,6 +22,7 @@ import fetchConsultations from "../Service/Consultations/ConsultationsLogic";
 import { getClientsCount } from "../Service/Client/UserService";
 import { getLawyersNumbers } from "../Service/Lawers/Lawyers";
 import TotalProfit from "../Service/totalProfit";
+import StatCard from "../Components/StatCard";
 
 export default function Dashboard() {
   const [stats, setStats] = useState({
