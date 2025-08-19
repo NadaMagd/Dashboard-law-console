@@ -57,7 +57,7 @@ export default function Clients() {
       </div>
 
       {/* Stats Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <div className="card text-center">
           <div className="w-16 h-16 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <UsersIcon className="w-8 h-8 text-purple-400" />
@@ -77,7 +77,7 @@ export default function Clients() {
           </h3>
           <p className="text-slate-400">With Profile Images</p>
         </div>
-
+        {/*
         <div className="card text-center">
           <div className="w-16 h-16 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <UserIcon className="w-8 h-8 text-green-400" />
@@ -86,7 +86,7 @@ export default function Clients() {
             {Clients.filter((client) => client.name).length}
           </h3>
           <p className="text-slate-400">Named Clients</p>
-        </div>
+        </div> */}
       </div>
 
       {/* Block Client Modal */}
@@ -139,12 +139,6 @@ export default function Clients() {
               alt="Client Profile"
               className="w-full max-w-lg h-auto rounded-lg border border-slate-600 m-auto"
             />
-            <button
-              onClick={() => setSelectedImage("")}
-              className="absolute top-2 right-2 w-8 h-8 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center transition-colors duration-200"
-            >
-              ✕
-            </button>
           </div>
           <div className="flex justify-center">
             <button

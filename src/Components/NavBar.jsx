@@ -12,7 +12,7 @@ import {
   FaBars,
   FaChevronRight,
 } from "react-icons/fa";
- 
+
 import logo from "/public/img1.svg";
 
 export default function NavBar({
@@ -71,7 +71,7 @@ export default function NavBar({
 
   return (
     <aside
-      className={`h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white flex flex-col p-4 shadow-2xl border-r border-slate-700/50 transition-all duration-300`}
+      className={`sticky top-0 h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white flex flex-col p-4 shadow-2xl border-r border-slate-700/50 transition-all duration-300`}
       style={{ width: collapsed ? "80px" : "256px" }}
     >
       {/* Header / Toggle */}
