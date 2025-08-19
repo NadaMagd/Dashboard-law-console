@@ -4,9 +4,18 @@ import {
   getInformationLawyers,
   rejectLawyer,
 } from "../Service/Lawers/Lawyers";
-import { TrashIcon, CheckCircleIcon, UserIcon, EnvelopeIcon, AcademicCapIcon, IdentificationIcon, DocumentIcon, EyeIcon } from "@heroicons/react/24/outline";
+import {
+  TrashIcon,
+  CheckCircleIcon,
+  UserIcon,
+  EnvelopeIcon,
+  AcademicCapIcon,
+  IdentificationIcon,
+  DocumentIcon,
+  EyeIcon,
+} from "@heroicons/react/24/outline";
 import Pagination from "../Components/Pagetions";
-import CustomModal from "../Components/Model";
+import CustomModal from "./../Components/Model";
 
 export default function RequestLawyers() {
   const [requests, setRequests] = useState([]);
@@ -14,9 +23,11 @@ export default function RequestLawyers() {
   const [message, setMessage] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
 
+  // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
+  // fetch pending lawyer
   useEffect(() => {
     const fetchData = async () => {
       const allRequests = await getInformationLawyers();
@@ -25,11 +36,13 @@ export default function RequestLawyers() {
     fetchData();
   }, []);
 
+  //handle accepted lawyer button
   const handleApprove = async (id) => {
     await ApproveLawyers(id);
     setRequests((prev) => prev.filter((request) => request.id !== id));
   };
 
+  //handle rejected lawyer button
   const handleReject = async () => {
     if (!message.trim()) return alert("Please write a reason for rejection");
 
@@ -67,28 +80,37 @@ export default function RequestLawyers() {
           <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-xl mb-4 mx-auto">
             <UserIcon className="w-6 h-6 text-blue-400" />
           </div>
-          <h3 className="text-2xl font-bold text-white mb-2">{requests.length}</h3>
+          <h3 className="text-2xl font-bold text-white mb-2">
+            {requests.length}
+          </h3>
           <p className="text-slate-400">Total Requests</p>
         </div>
-        
+
         <div className="card text-center">
           <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl mb-4 mx-auto">
             <CheckCircleIcon className="w-6 h-6 text-green-400" />
           </div>
-          <h3 className="text-2xl font-bold text-white mb-2">{requests.filter(r => r.specializations).length}</h3>
+          <h3 className="text-2xl font-bold text-white mb-2">
+            {requests.filter((r) => r.specializations).length}
+          </h3>
           <p className="text-slate-400">With Specializations</p>
         </div>
-        
+
         <div className="card text-center">
           <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl mb-4 mx-auto">
             <DocumentIcon className="w-6 h-6 text-purple-400" />
           </div>
-          <h3 className="text-2xl font-bold text-white mb-2">{requests.filter(r => r.idImageUrl && r.barAssociationImageUrl).length}</h3>
+          <h3 className="text-2xl font-bold text-white mb-2">
+            {
+              requests.filter((r) => r.idImageUrl && r.barAssociationImageUrl)
+                .length
+            }
+          </h3>
           <p className="text-slate-400">Complete Documents</p>
         </div>
       </div>
 
-      {/* Modal رفض */}
+      {/* Rejection Modal */}
       <CustomModal
         isOpen={!!selectedLawyerId}
         onClose={() => {
@@ -119,10 +141,7 @@ export default function RequestLawyers() {
             >
               Cancel
             </button>
-            <button
-              onClick={handleReject}
-              className="btn btn-danger"
-            >
+            <button onClick={handleReject} className="btn btn-danger">
               <TrashIcon className="w-4 h-4" />
               Confirm Rejection
             </button>
@@ -130,7 +149,7 @@ export default function RequestLawyers() {
         </div>
       </CustomModal>
 
-      {/* Modal صورة */}
+      {/* Image Preview Modal */}
       <CustomModal
         isOpen={!!selectedImage}
         onClose={() => setSelectedImage("")}
@@ -140,15 +159,9 @@ export default function RequestLawyers() {
           <div className="relative">
             <img
               src={selectedImage}
-              alt="Lawyer Document"
-              className="w-full max-w-lg h-auto rounded-xl shadow-2xl border border-slate-600"
+              alt="Document"
+              className="w-full max-w-lg h-auto rounded-lg border border-slate-600 m-auto mb-4"
             />
-            <button
-              onClick={() => setSelectedImage("")}
-              className="absolute top-3 right-3 w-8 h-8 bg-black/70 hover:bg-black/90 text-white rounded-full flex items-center justify-center transition-colors"
-            >
-              ✕
-            </button>
           </div>
           <div className="flex justify-center">
             <button
@@ -161,7 +174,7 @@ export default function RequestLawyers() {
         </div>
       </CustomModal>
 
-      {/* جدول */}
+      {/* Table */}
       <div className="card">
         <div className="card-header">
           <div>
@@ -170,7 +183,9 @@ export default function RequestLawyers() {
           </div>
           <div className="flex items-center gap-2 text-slate-400">
             <UserIcon className="w-5 h-5" />
-            <span className="text-sm font-medium">{requests.length} requests</span>
+            <span className="text-sm font-medium">
+              {requests.length} requests
+            </span>
           </div>
         </div>
 
@@ -180,7 +195,9 @@ export default function RequestLawyers() {
               <tr>
                 <th>
                   <div className="flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center text-xs text-blue-400">#</span>
+                    <span className="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center text-xs text-blue-400">
+                      #
+                    </span>
                     ID
                   </div>
                 </th>
@@ -219,14 +236,21 @@ export default function RequestLawyers() {
             </thead>
             <tbody>
               {currentRequests.map((request, index) => (
-                <tr key={request.id} className="hover:bg-slate-800/50 transition-colors duration-200">
-                  <td className="font-mono text-slate-300">{indexOfFirstRequest + index + 1}</td>
+                <tr
+                  key={request.id}
+                  className="hover:bg-slate-800/50 transition-colors duration-200"
+                >
+                  <td className="font-mono text-slate-300">
+                    {indexOfFirstRequest + index + 1}
+                  </td>
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center">
                         <UserIcon className="w-4 h-4 text-blue-400" />
                       </div>
-                      <span className="font-medium text-white">{request.name}</span>
+                      <span className="font-medium text-white">
+                        {request.name}
+                      </span>
                     </div>
                   </td>
                   <td>
@@ -236,31 +260,41 @@ export default function RequestLawyers() {
                     </div>
                   </td>
                   <td>
-                    <span className="text-slate-300">{request.specializations || "—"}</span>
+                    <span className="text-slate-300">
+                      {request.specializations || "—"}
+                    </span>
                   </td>
+
+                  {/* National ID */}
                   <td className="text-center">
-                    <div className="flex justify-center">
-                      <div className="relative group cursor-pointer">
-                        <img
-                          src={request.idImageUrl}
-                          alt="ID"
-                          className="w-12 h-12 rounded-lg object-cover border border-slate-600 hover:border-blue-400 hover:scale-105 transition-all duration-200"
-                          onClick={() => setSelectedImage(request.idImageUrl)}
-                        />
-                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
-                          <EyeIcon className="w-5 h-5 text-white" />
-                        </div>
+                    <div
+                      className="relative group cursor-pointer"
+                      onClick={() => setSelectedImage(request.idImageUrl)}
+                    >
+                      <img
+                        src={request.idImageUrl}
+                        alt="ID"
+                        className="w-12 h-12 rounded-lg object-cover border border-slate-600 hover:border-blue-400 hover:scale-105 transition-all duration-200"
+                      />
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
+                        <EyeIcon className="w-5 h-5 text-white" />
                       </div>
                     </div>
                   </td>
+
+                  {/* Lawyer's Card */}
                   <td className="text-center">
                     <div className="flex justify-center">
-                      <div className="relative group cursor-pointer">
+                      <div
+                        className="relative group cursor-pointer"
+                        onClick={() =>
+                          setSelectedImage(request.barAssociationImageUrl)
+                        }
+                      >
                         <img
                           src={request.barAssociationImageUrl}
                           alt="Card"
                           className="w-12 h-12 rounded-lg object-cover border border-slate-600 hover:border-blue-400 hover:scale-105 transition-all duration-200"
-                          onClick={() => setSelectedImage(request.barAssociationImageUrl)}
                         />
                         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-lg flex items-center justify-center">
                           <EyeIcon className="w-5 h-5 text-white" />
@@ -268,6 +302,8 @@ export default function RequestLawyers() {
                       </div>
                     </div>
                   </td>
+
+                  {/* Actions */}
                   <td>
                     <div className="flex justify-center gap-2">
                       <button
@@ -293,6 +329,7 @@ export default function RequestLawyers() {
         </div>
       </div>
 
+      {/* Pagination */}
       <div className="flex justify-center">
         <Pagination
           currentPage={currentPage}

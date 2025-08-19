@@ -27,6 +27,7 @@ export default function Lawyers() {
   const currentData = requests.slice(indexOfFirst, indexOfLast);
   const totalPages = Math.ceil(requests.length / itemsPerPage);
 
+    // fetch accepted lawyer
   useEffect(() => {
     const fetchData = async () => {
       const allRequests = await getInformationLawyers();
@@ -35,6 +36,7 @@ export default function Lawyers() {
     fetchData();
   }, []);
 
+    //handle rejected lawyer button
   const handleReject = async () => {
     if (!message.trim()) return alert("Please write a reason for rejection");
 
@@ -133,11 +135,13 @@ export default function Lawyers() {
         title="Document Preview"
       >
         <div className="space-y-4">
-          <img
-            src={selectedImage}
-            alt="Document"
-            className="w-full max-w-lg h-auto rounded-lg border border-slate-600 m-auto mb-4"
-          />
+          <div className="relative">
+            <img
+              src={selectedImage}
+              alt="Document"
+              className="w-full max-w-lg h-auto rounded-lg border border-slate-600 m-auto mb-4"
+            />
+          </div>
           <div className="flex justify-center">
             <button
               onClick={() => setSelectedImage("")}
